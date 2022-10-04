@@ -1,0 +1,47 @@
+.app {
+  background-color: #ebeef3;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  width: 100%;
+  max-height: 80px;
+  padding: 0 22px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 18px;
+
+  background-color: #fff;
+
+  z-index: 9999;
+}
+
+.container {
+  max-width: 941px;
+  margin: 0 auto;
+  padding-top: 106px;
+}
+
+.articleList {
+  list-style: none;
+}
+
+.articleItem {
+  margin-bottom: 26px;
+  padding: 15px;
+
+  display: flex;
+  justify-content: space-between;
+
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+}

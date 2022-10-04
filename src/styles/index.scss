@@ -1,0 +1,25 @@
+// Imports
+@import url('https://rsms.me/inter/inter.css');
+@import 'normalize.css';
+// ===
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+
+  font-family: 'Inter', serif;
+  font-size: 12px;
+
+  background-color: #f3f7fa;
+}

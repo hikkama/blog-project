@@ -1,0 +1,13 @@
+@import 'variables.scss';
+
+@mixin small {
+  @media only screen and (max-width: $sm) {
+    @content;
+  }
+}
+
+@mixin medium {
+  @media only screen and (max-width: $md) {
+    @content;
+  }
+}
