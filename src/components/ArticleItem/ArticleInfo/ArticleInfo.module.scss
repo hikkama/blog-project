@@ -1,0 +1,41 @@
+@import '../../../styles/variables';
+
+.noWrapper {
+  display: flex;
+  flex-basis: 682px;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.withWrapper {
+  composes: noWrapper;
+  composes: article from '../ArticleItem.module.scss';
+}
+
+.titleInfo {
+  display: flex;
+  align-items: center;
+  margin: 0 0 5px 0;
+}
+
+.title {
+  color: $primary-color;
+  font-size: $fz + 4;
+  font-weight: 400;
+  line-height: 28px;
+  margin-right: 13px;
+  margin-bottom: 0;
+}
+
+.tagList {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 7px;
+}
+
+.desc {
+  line-height: 22px;
+  color: rgba(0, 0, 0, 0.75);
+}

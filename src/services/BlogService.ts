@@ -18,6 +18,7 @@ export const blogAPI = createApi({
         },
       }),
     }),
+
     fetchArticle: build.query<ArticleData, string>({
       query: (slug: string) => ({
         url: `/articles/${slug}`,

@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 import { ArticleData } from '../../models/ArticleData'
-import ArticleItem from '../ArticleItem'
+import ArticleInfo from '../ArticleItem/ArticleInfo'
 
 import styles from './ArticleList.module.scss'
 
@@ -15,7 +15,7 @@ const ArticleList: FC<ArticleListProps> = ({ articles }) => {
       {articles?.map((article: ArticleData, index) => {
         return (
           <li className={styles.articleItem} key={`${article.createdAt}-${index}`}>
-            <ArticleItem article={article} />
+            <ArticleInfo article={article} wrapper />
           </li>
         )
       })}
