@@ -2,7 +2,6 @@ import { FC } from 'react'
 
 import { ArticleData } from '../../models/ArticleData'
 import ArticleItem from '../ArticleItem'
-import { useAppSelector } from '../../hooks/redux'
 
 import styles from './ArticleList.module.scss'
 

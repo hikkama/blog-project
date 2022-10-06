@@ -1,47 +1,35 @@
-import React, { FC, useState } from 'react'
-import { Pagination } from 'antd'
+import React, { FC } from 'react'
+import { RouteObject, useRoutes } from 'react-router-dom'
 
 import Header from '../Header'
-import ArticleList from '../ArticleList'
-import { useFetchAllArticlesQuery } from '../../services/BlogService'
+import ArticleListPage from '../../pages/ArticleListPage'
+import SingleArticlePage from '../../pages/SingleArticlePage'
 
 import styles from './App.module.scss'
+
 //https://www.figma.com/file/XXBjJXew3xpfbOZUnO9QVB/Blog?node-id=9582%3A0
 //https://api.realworld.io/api-docs/
+
 const App: FC = () => {
-  const [articleOffset, setArticleOffset] = useState(0)
-  const [page, setPage] = useState(1)
-  const { isLoading, error, data } = useFetchAllArticlesQuery(articleOffset)
+  const routes: RouteObject[] = [
+    {
+      path: '/',
+      element: <ArticleListPage />,
+      children: [{ path: '/articles', element: <ArticleListPage /> }],
+    },
+    { path: '/articles/:slug', element: <SingleArticlePage /> },
+  ]
 
-  const onChangePagination = (nextPage: number): void => {
-    setArticleOffset((nextPage - 1) * 10)
-    setPage(nextPage)
-  }
-
-  return (
-    <>
-      <Header />
-      <div className={styles.container}>
-        {isLoading && <div>Loading...</div>}
-        {error && <div>Error</div>}
-        {data && (
-          <>
-            <ArticleList articles={data.articles} />
-            <div className={styles.pagination}>
-              <Pagination
-                size="small"
-                onChange={onChangePagination}
-                total={data.articlesCount}
-                showSizeChanger={false}
-                pageSize={10}
-                current={page}
-              />
-            </div>
-          </>
-        )}
-      </div>
-    </>
-  )
+  return useRoutes(routes)
 }
 
-export default App
+const AppWrapper = () => (
+  <>
+    <Header />
+    <div className={styles.container}>
+      <App />
+    </div>
+  </>
+)
+
+export default AppWrapper

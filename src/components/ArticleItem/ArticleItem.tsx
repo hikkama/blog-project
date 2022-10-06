@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import { HeartOutlined } from '@ant-design/icons'
 import { Tag } from 'antd'
+import { Link } from 'react-router-dom'
 
 import { ArticleData } from '../../models/ArticleData'
 
@@ -12,29 +13,33 @@ interface ArticleItemProps {
 }
 
 const ArticleItem: FC<ArticleItemProps> = ({ article }) => {
-  const { title, favoritesCount, tagList, body } = article
+  const { title, favoritesCount, tagList, description } = article
 
   return (
     <div className={styles.article}>
-      <div className={styles.body}>
-        <div className={styles.titleInfo}>
-          <h2 className={styles.title}>{title}</h2>
-          <span>
-            <HeartOutlined /> {favoritesCount}
-          </span>
+      <div className={styles.articleHeader}>
+        <div className={styles.body}>
+          <div className={styles.titleInfo}>
+            <Link to={`/articles/${article.slug}`} className={styles.title}>
+              {title}
+            </Link>
+            <span>
+              <HeartOutlined /> {favoritesCount}
+            </span>
+          </div>
+
+          <ul className={styles.tagList}>
+            {tagList.map((tag) => (
+              <li className={styles.tagItem} key={tag}>
+                <Tag>{tag}</Tag>
+              </li>
+            ))}
+          </ul>
+          <p className={styles.text}>{description}</p>
         </div>
 
-        <ul className={styles.tagList}>
-          {tagList.map((tag) => (
-            <li className={styles.tagItem} key={tag}>
-              <Tag>{tag}</Tag>
-            </li>
-          ))}
-        </ul>
-        <p className={styles.text}>{body}</p>
+        <AuthorBlock author={article.author} date={'March 5, 2020'} />
       </div>
-
-      <AuthorBlock author={article.author} date={'March 5, 2020'} />
     </div>
   )
 }

@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react'
 
 import { RootObjectData } from '../models/RootObjectData'
+import { ArticleData } from '../models/ArticleData'
 
 export const blogAPI = createApi({
   reducerPath: 'blogAPI',
@@ -17,7 +18,13 @@ export const blogAPI = createApi({
         },
       }),
     }),
+    fetchArticle: build.query<ArticleData, string>({
+      query: (slug: string) => ({
+        url: `/articles/${slug}`,
+      }),
+      transformResponse: (response: { article: ArticleData }) => response.article,
+    }),
   }),
 })
 
-export const { useFetchAllArticlesQuery } = blogAPI
+export const { useFetchAllArticlesQuery, useFetchArticleQuery } = blogAPI
