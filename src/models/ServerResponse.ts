@@ -1,6 +1,6 @@
 import { ArticleData } from './ArticleData'
 
-export interface RootObjectData {
+export interface ServerResponse {
   articles: ArticleData[]
   articlesCount: number
 }

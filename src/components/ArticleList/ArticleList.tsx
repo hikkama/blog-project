@@ -2,14 +2,13 @@ import { FC } from 'react'
 
 import { ArticleData } from '../../models/ArticleData'
 import ArticleInfo from '../ArticleItem/ArticleInfo'
+import { useAppSelector } from '../../hooks/redux'
 
 import styles from './ArticleList.module.scss'
 
-interface ArticleListProps {
-  articles: ArticleData[]
-}
+const ArticleList: FC = () => {
+  const { articles } = useAppSelector((state) => state.blogReducer)
 
-const ArticleList: FC<ArticleListProps> = ({ articles }) => {
   return (
     <ul className={styles.articleList}>
       {articles?.map((article: ArticleData, index) => {

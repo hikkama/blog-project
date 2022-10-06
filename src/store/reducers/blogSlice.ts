@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { ArticleData } from '../../models/ArticleData'
 
@@ -16,11 +16,14 @@ export const blogSlice = createSlice({
   name: 'blog',
   initialState,
   reducers: {
-    setPageState: (state, action) => {
+    setPageState: (state, action: PayloadAction<number>) => {
       state.page = action.payload
+    },
+    addArticles: (state, action: PayloadAction<ArticleData[]>) => {
+      state.articles = action.payload
     },
   },
 })
 
 export default blogSlice.reducer
-export const { setPageState } = blogSlice.actions
+export const { setPageState, addArticles } = blogSlice.actions
