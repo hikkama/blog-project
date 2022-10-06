@@ -4,6 +4,7 @@ import { RouteObject, useRoutes } from 'react-router-dom'
 import Header from '../Header'
 import ArticleListPage from '../../pages/ArticleListPage'
 import SingleArticlePage from '../../pages/SingleArticlePage'
+import NotFound from '../../pages/NotFound'
 
 import styles from './App.module.scss'
 
@@ -18,6 +19,7 @@ const App: FC = () => {
       children: [{ path: '/articles', element: <ArticleListPage /> }],
     },
     { path: '/articles/:slug', element: <SingleArticlePage /> },
+    { path: '*', element: <NotFound /> },
   ]
 
   return useRoutes(routes)
