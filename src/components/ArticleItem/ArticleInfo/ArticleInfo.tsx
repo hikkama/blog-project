@@ -38,7 +38,7 @@ const ArticleInfo: FC<ArticleInfoProps> = ({ article, wrapper = false }) => {
         <div className={styles.text}>{description}</div>
       </div>
 
-      <AuthorBlock author={article.author} date={'March 5, 2020'} />
+      <AuthorBlock author={article.author} date={article.createdAt} />
     </div>
   )
 }
