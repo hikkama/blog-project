@@ -12,6 +12,7 @@ export const blogAPI = createApi({
       query: (offset = 0) => ({
         url: '/articles',
         params: {
+          limit: 10,
           offset,
         },
       }),

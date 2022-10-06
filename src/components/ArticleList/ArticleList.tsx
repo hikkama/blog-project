@@ -10,7 +10,7 @@ interface ArticleListProps {
   articles: ArticleData[]
 }
 
-const ArticleList: FC<ArticleListProps> = ({articles}) => {
+const ArticleList: FC<ArticleListProps> = ({ articles }) => {
   return (
     <ul className={styles.articleList}>
       {articles?.map((article: ArticleData, index) => {
