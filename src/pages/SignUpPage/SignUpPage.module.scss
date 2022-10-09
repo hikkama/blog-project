@@ -1,0 +1,120 @@
+.form {
+  max-width: 384px;
+  padding: 48px 32px;
+  margin: 0 auto;
+
+  background: #fff;
+  border: 1px solid #d9d9d9;
+  box-shadow: 0px 22px 106px rgba(0, 0, 0, 0.07), 0px 9.19107px 44.2843px rgba(0, 0, 0, 0.0503198),
+    0px 4.91399px 23.6765px rgba(0, 0, 0, 0.0417275), 0px 2.75474px 13.2728px rgba(0, 0, 0, 0.035),
+    0px 1.46302px 7.04911px rgba(0, 0, 0, 0.0282725), 0px 0.608796px 2.93329px rgba(0, 0, 0, 0.0196802);
+  border-radius: 6px;
+}
+
+.title {
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+
+.checkboxLabel {
+  padding-left: 24px;
+  margin-bottom: 21px;
+}
+
+.inputTitle {
+  font-size: 14px;
+  display: inline-block;
+  margin-bottom: 2px;
+}
+
+.checkboxTitle {
+  color: #595959;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.input {
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 16px;
+}
+
+.inputErr {
+  border: 1px solid #f5222d;
+}
+
+.check {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  position: absolute;
+}
+
+.checkbox {
+  margin-top: 4px;
+  cursor: pointer;
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  margin-left: -24px;
+  border: 1px solid #595959;
+  background-color: #fff;
+  border-radius: 2px;
+}
+
+.check:checked + .checkbox {
+  background-color: #1890ff;
+  background-image: url('../../assets/icons/check.svg');
+  background-repeat: no-repeat;
+  border: 1px solid #1890ff;
+  background-position: center;
+}
+
+.check:focus-visible + .checkbox {
+  border: 1px solid #1890ff;
+  background-color: #fff;
+}
+
+.check:checked:focus-visible + .checkbox {
+  border: 1px solid #ff9806;
+  background-color: #1890ff;
+  background-image: url('../../assets/icons/check.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.btn {
+  border: none;
+  padding: 8px 0;
+  color: #fff;
+  font-size: 16px;
+  width: 100%;
+  background: #1890ff;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: initial;
+    background: #76b7f8;
+  }
+}
+
+.signIn {
+  text-align: center;
+  color: #8c8c8c;
+}
+
+.error {
+  color: #f5222d;
+  font-size: 14px;
+}

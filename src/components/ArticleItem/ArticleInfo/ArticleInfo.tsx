@@ -20,9 +20,14 @@ const ArticleInfo: FC<ArticleInfoProps> = ({ article, wrapper = false }) => {
     <div className={wrapper ? styles.withWrapper : styles.noWrapper}>
       <div className={styles.body}>
         <div className={styles.titleInfo}>
-          <Link to={`/articles/${slug}`} className={styles.title}>
-            {title}
-          </Link>
+          {wrapper ? (
+            <Link to={`/articles/${slug}`} className={styles.title}>
+              {title}
+            </Link>
+          ) : (
+            <h2 className={styles.title}> {title}</h2>
+          )}
+
           <span>
             <HeartOutlined /> {favoritesCount}
           </span>
@@ -35,7 +40,7 @@ const ArticleInfo: FC<ArticleInfoProps> = ({ article, wrapper = false }) => {
             </li>
           ))}
         </ul>
-        <div className={styles.text}>{description}</div>
+        <div className={wrapper ? styles.desc : styles.text}>{description}</div>
       </div>
 
       <AuthorBlock author={article.author} date={article.createdAt} />

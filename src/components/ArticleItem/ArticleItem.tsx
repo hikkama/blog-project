@@ -14,7 +14,7 @@ const ArticleItem: FC<ArticleItemProps> = ({ article }) => {
   return (
     <div className={styles.article}>
       <ArticleInfo article={article} />
-      <div>
+      <div className={styles.body}>
         <ReactMarkdown>{article.body}</ReactMarkdown>
       </div>
     </div>

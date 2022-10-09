@@ -5,6 +5,8 @@ import Header from '../Header'
 import ArticleListPage from '../../pages/ArticleListPage'
 import SingleArticlePage from '../../pages/SingleArticlePage'
 import NotFound from '../../pages/NotFound'
+import SignInPage from '../../pages/SignInPage'
+import SignUpPage from '../../pages/SignUpPage'
 
 import styles from './App.module.scss'
 
@@ -19,6 +21,8 @@ const App: FC = () => {
       children: [{ path: '/articles', element: <ArticleListPage /> }],
     },
     { path: '/articles/:slug', element: <SingleArticlePage /> },
+    { path: '/sign-in', element: <SignInPage /> },
+    { path: '/sign-up', element: <SignUpPage /> },
     { path: '*', element: <NotFound /> },
   ]
 
