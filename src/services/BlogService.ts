@@ -25,7 +25,15 @@ export const blogAPI = createApi({
       }),
       transformResponse: (response: { article: ArticleData }) => response.article,
     }),
+
+    createUser: build.mutation<any, any>({
+      query: (user) => ({
+        url: '/users',
+        method: 'POST',
+        body: user,
+      }),
+    }),
   }),
 })
 
-export const { useFetchAllArticlesQuery, useFetchArticleQuery } = blogAPI
+export const { useFetchAllArticlesQuery, useFetchArticleQuery, useCreateUserMutation } = blogAPI

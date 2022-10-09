@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import classNames from 'classnames'
 
+import { useCreateUserMutation } from '../../services/BlogService'
+
 import styles from './SignUpPage.module.scss'
 
 interface FormInputsData {
@@ -13,14 +15,28 @@ interface FormInputsData {
   agreement: boolean
 }
 
+interface FormFetchData {
+  username: string
+  email: string
+  password: string
+  repeatPassword: string
+  agreement: boolean
+}
+
 const SignUpPage = () => {
+  const [createUser, { isLoading, data, isError, error }] = useCreateUserMutation()
+
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors, isValid },
   } = useForm<FormInputsData>({ mode: 'all' })
-  const onSubmit: SubmitHandler<FormInputsData> = (data) => console.log(data)
+
+  const onSubmit: SubmitHandler<FormInputsData> = async ({ username, email, password }) => {
+    const user = { username, email, password }
+    const res = await createUser({ user })
+  }
 
   const passRegExp =
     /^[a-zA-Z0-9][-_.+!#$%&'*/=?^`{|]?([a-zA-Z0-9][-_.+!#$%&'*\\=?^`{|]?)*[a-zA-Z0-9]@[a-zA-Z0-9][-.]?([a-zA-Z][-.]?)*[a-zA-Z0-9]\.[a-zA-Z0-9]+([.-]?[a-zA-Z])*[a-zA-Z0-9]*$/
