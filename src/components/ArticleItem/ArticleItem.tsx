@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import ReactMarkdown from 'react-markdown'
 
-import { ArticleData } from '../../models/ArticleData'
+import { ArticleData } from '../../models/articles'
 
 import ArticleInfo from './ArticleInfo'
 import styles from './ArticleItem.module.scss'

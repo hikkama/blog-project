@@ -1,12 +1,12 @@
 import { FC } from 'react'
 
-import { AuthorData } from '../../../models/AuthorData'
+import { UserData } from '../../../models/user'
 import formatDate from '../../../utils/formatDate'
 
 import styles from './AuthorBlock.module.scss'
 
 interface AuthorBlockProps {
-  author: AuthorData
+  author: UserData
   date?: string
 }
 

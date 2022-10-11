@@ -1,4 +1,3 @@
-import { Button } from 'antd'
 import { Link } from 'react-router-dom'
 
 import styles from './Header.module.scss'
@@ -8,8 +7,8 @@ const Header = () => {
     <header className={styles.header}>
       <Link to="/articles">Realworld Blog</Link>
       <div className={styles.loginBtns}>
-        <Button type="text">Sign In</Button> {/* Link Router */}
-        <button>Sign Up</button> {/* Link Router */}
+        <Link to="/sign-in">Sign In</Link>
+        <Link to="/sign-up">Sign Up</Link>
       </div>
     </header>
   )

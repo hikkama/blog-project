@@ -4,7 +4,7 @@ import { HeartOutlined } from '@ant-design/icons'
 import { Tag } from 'antd'
 
 import AuthorBlock from '../AuthorBlock'
-import { ArticleData } from '../../../models/ArticleData'
+import { ArticleData } from '../../../models/articles'
 
 import styles from './ArticleInfo.module.scss'
 

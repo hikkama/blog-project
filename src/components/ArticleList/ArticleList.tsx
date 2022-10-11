@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { ArticleData } from '../../models/ArticleData'
+import { ArticleData } from '../../models/articles'
 import ArticleInfo from '../ArticleItem/ArticleInfo'
 import { useAppSelector } from '../../hooks/redux'
 

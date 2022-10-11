@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import classNames from 'classnames'
 
@@ -15,27 +15,38 @@ interface FormInputsData {
   agreement: boolean
 }
 
-interface FormFetchData {
-  username: string
-  email: string
-  password: string
-  repeatPassword: string
-  agreement: boolean
-}
-
 const SignUpPage = () => {
-  const [createUser, { isLoading, data, isError, error }] = useCreateUserMutation()
+  const [createUser, { isLoading }] = useCreateUserMutation()
+  const navigate = useNavigate()
 
   const {
     register,
     handleSubmit,
     watch,
+    setError,
     formState: { errors, isValid },
-  } = useForm<FormInputsData>({ mode: 'all' })
+  } = useForm<FormInputsData>({ mode: 'onBlur' })
 
   const onSubmit: SubmitHandler<FormInputsData> = async ({ username, email, password }) => {
     const user = { username, email, password }
-    const res = await createUser({ user })
+    try {
+      const res = await createUser({ user }).unwrap()
+      localStorage.setItem('token', res.user.token)
+      navigate('/articles')
+    } catch (e: any) {
+      if (e?.data?.errors?.email) {
+        setError('email', {
+          type: 'serverError',
+          message: 'Email is already taken.',
+        })
+      }
+      if (e?.data?.errors?.username) {
+        setError('username', {
+          type: 'serverError',
+          message: 'Username is already taken.',
+        })
+      }
+    }
   }
 
   const passRegExp =
@@ -125,9 +136,19 @@ const SignUpPage = () => {
         <span className={styles.checkboxTitle}>I agree to the processing of my personal information</span>
         {errors?.agreement && <div className={styles.error}>{errors.agreement?.message || 'Error'}</div>}
       </label>
-      <input className={styles.btn} type="submit" value="Create" disabled={!isValid} />
+
+      <button
+        type="submit"
+        disabled={!isValid || isLoading}
+        className={classNames({
+          [styles.btn]: true,
+          [styles.btnLoading]: isLoading,
+        })}
+      >
+        <span className={styles.btnText}>Create</span>
+      </button>
       <div className={styles.signIn}>
-        Already have an account? <Link to="/">Sign In.</Link>
+        Already have an account? <Link to="/sign-in">Sign In.</Link>
       </div>
     </form>
   )
