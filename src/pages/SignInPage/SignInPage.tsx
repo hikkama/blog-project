@@ -3,8 +3,8 @@ import classNames from 'classnames'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 
-import styles from '../SignUpPage/SignUpPage.module.scss'
 import { useLogUserMutation } from '../../services/BlogService'
+import styles from '../SignUpPage/SignUpPage.module.scss'
 
 interface FormInputsData {
   email: string
@@ -14,20 +14,33 @@ interface FormInputsData {
 const SignInPage = () => {
   const {
     register,
+    setError,
     handleSubmit,
-    watch,
     formState: { errors, isValid },
   } = useForm<FormInputsData>({ mode: 'all' })
   const navigate = useNavigate()
 
-  const [logUser, { isLoading, data, isError, error }] = useLogUserMutation()
+  const [logUser, { isLoading }] = useLogUserMutation()
 
   const onSubmit: SubmitHandler<FormInputsData> = async ({ email, password }) => {
     const user = { email, password }
-    const res = await logUser({ user }).unwrap()
-    console.log(res)
-    localStorage.setItem('token', res.user.token!)
-    navigate('/articles')
+    try {
+      const res = await logUser({ user }).unwrap()
+      console.log(res)
+      localStorage.setItem('token', res.user.token!)
+      navigate('/articles')
+    } catch (e: any) {
+      if (e?.data?.errors?.['email or password']) {
+        setError('email', {
+          type: 'serverError',
+          message: 'Email or password is invalid.',
+        })
+        setError('password', {
+          type: 'serverError',
+          message: 'Email or password is invalid.',
+        })
+      }
+    }
   }
 
   const passRegExp =
@@ -53,6 +66,7 @@ const SignInPage = () => {
         />
         {errors?.email && <span className={styles.error}>{errors.email?.message || 'Error'}</span>}
       </label>
+
       <label className={styles.label}>
         <span className={styles.inputTitle}>Password</span>
         <input
@@ -71,7 +85,17 @@ const SignInPage = () => {
         {errors?.password && <span className={styles.error}>{errors.password?.message || 'Error'}</span>}
       </label>
 
-      <input className={styles.btn} type="submit" value="Login" disabled={!isValid} />
+      <button
+        type="submit"
+        disabled={!isValid || isLoading}
+        className={classNames({
+          [styles.btn]: true,
+          [styles.btnLoading]: isLoading,
+        })}
+      >
+        <span className={styles.btnText}>Login</span>
+      </button>
+
       <div className={styles.signIn}>
         Don&apos;t have an account? <Link to="/sign-up">Sign Up.</Link>
       </div>

@@ -56,6 +56,7 @@ const SignUpPage = () => {
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <h3 className={styles.title}>Create new account</h3>
+
       <label className={styles.label}>
         <span className={styles.inputTitle}>Username</span>
         <input
@@ -90,6 +91,7 @@ const SignUpPage = () => {
         />
         {errors?.email && <span className={styles.error}>{errors.email?.message || 'Error'}</span>}
       </label>
+
       <label className={styles.label}>
         <span className={styles.inputTitle}>Password</span>
         <input
@@ -107,6 +109,7 @@ const SignUpPage = () => {
         />
         {errors?.password && <span className={styles.error}>{errors.password?.message || 'Error'}</span>}
       </label>
+
       <label className={styles.label}>
         <span className={styles.inputTitle}>Repeat Password</span>
         <input
@@ -127,6 +130,7 @@ const SignUpPage = () => {
         />
         {errors?.repeatPassword && <span className={styles.error}>{errors.repeatPassword?.message || 'Error'}</span>}
       </label>
+
       <label className={`${styles.label} ${styles.checkboxLabel}`}>
         <input
           {...register('agreement', { required: 'Agreement is required' })}
@@ -148,6 +152,7 @@ const SignUpPage = () => {
       >
         <span className={styles.btnText}>Create</span>
       </button>
+
       <div className={styles.signIn}>
         Already have an account? <Link to="/sign-in">Sign In.</Link>
       </div>
