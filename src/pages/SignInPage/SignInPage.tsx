@@ -1,7 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import styles from '../SignUpPage/SignUpPage.module.scss'
 import { useLogUserMutation } from '../../services/BlogService'
@@ -18,12 +18,16 @@ const SignInPage = () => {
     watch,
     formState: { errors, isValid },
   } = useForm<FormInputsData>({ mode: 'all' })
+  const navigate = useNavigate()
 
   const [logUser, { isLoading, data, isError, error }] = useLogUserMutation()
 
   const onSubmit: SubmitHandler<FormInputsData> = async ({ email, password }) => {
     const user = { email, password }
-    await logUser({ user })
+    const res = await logUser({ user }).unwrap()
+    console.log(res)
+    localStorage.setItem('token', res.user.token!)
+    navigate('/articles')
   }
 
   const passRegExp =

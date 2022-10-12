@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { Spin } from 'antd'
 
 import ArticleList from '../../components/ArticleList'
-import { useFetchAllArticlesQuery } from '../../services/BlogService'
+import { useFetchAllArticlesQuery, useLazyGetCurrentUserQuery } from '../../services/BlogService'
 import { addArticles } from '../../store/reducers/blogSlice'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import PaginationBlock from '../../components/PaginationBlock'
@@ -12,11 +12,20 @@ const ArticleListPage = () => {
   const dispatch = useAppDispatch()
   const { page } = useAppSelector((state) => state.blogReducer)
   const { isLoading, error, isError, data } = useFetchAllArticlesQuery((page - 1) * 10)
+  const [getUser] = useLazyGetCurrentUserQuery()
 
   useEffect(() => {
     if (!data) return
     dispatch(addArticles(data.articles))
   }, [data])
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (!token) return
+    ;(async () => {
+      await getUser(token)
+    })()
+  }, [])
 
   return (
     <>

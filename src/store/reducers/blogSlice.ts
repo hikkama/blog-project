@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { ArticleData } from '../../models/articles'
+import { UserData } from '../../models/user'
 
 interface BlogState {
   articles: ArticleData[]

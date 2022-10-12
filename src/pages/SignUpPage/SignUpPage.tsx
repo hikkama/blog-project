@@ -31,7 +31,8 @@ const SignUpPage = () => {
     const user = { username, email, password }
     try {
       const res = await createUser({ user }).unwrap()
-      localStorage.setItem('token', res.user.token)
+      console.log(res)
+      localStorage.setItem('token', res.user.token!)
       navigate('/articles')
     } catch (e: any) {
       if (e?.data?.errors?.email) {

@@ -34,8 +34,8 @@ const ArticleInfo: FC<ArticleInfoProps> = ({ article, wrapper = false }) => {
         </div>
 
         <ul className={styles.tagList}>
-          {tagList.map((tag) => (
-            <li className={styles.tagItem} key={tag}>
+          {tagList.map((tag, i) => (
+            <li className={styles.tagItem} key={`${tag}-${i}`}>
               <Tag>{tag}</Tag>
             </li>
           ))}

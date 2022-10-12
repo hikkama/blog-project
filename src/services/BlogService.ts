@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react'
 
-import { ArticleResponse, ServerErrorResponse, SignUpRequest, UserResponse } from '../models/responses'
+import { ArticleResponse, SignUpRequest, UserResponse } from '../models/responses'
 import { ArticleData } from '../models/articles'
 import { UserData } from '../models/user'
 
@@ -42,7 +42,33 @@ export const blogAPI = createApi({
         body: user,
       }),
     }),
+
+    getCurrentUser: build.query<UserResponse, string>({
+      query: (token) => ({
+        url: '/user',
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      }),
+    }),
+
+    updateUser: build.mutation<UserResponse, { user: Partial<UserData>; token: string }>({
+      query: ({ user, token }) => ({
+        url: '/user',
+        method: 'PUT',
+        body: user,
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      }),
+    }),
   }),
 })
 
-export const { useFetchAllArticlesQuery, useFetchArticleQuery, useCreateUserMutation, useLogUserMutation } = blogAPI
+export const {
+  useFetchAllArticlesQuery,
+  useFetchArticleQuery,
+  useCreateUserMutation,
+  useLogUserMutation,
+  useLazyGetCurrentUserQuery,
+} = blogAPI
