@@ -2,21 +2,20 @@ import React, { FC } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 import avatar from '../../../assets/img/avatar.svg'
-import { withUser } from '../../../hoc/withUser'
-import { UserResponse } from '../../../models/responses'
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux'
+import { removeUser } from '../../../store/reducers/blogSlice'
 
 import styles from './AuthBlock.module.scss'
 
-interface AuthBlockProps {
-  data: UserResponse
-}
-
-const AuthBlock: FC<AuthBlockProps> = ({ data }) => {
+const AuthBlock: FC = () => {
   const hasToken = !!localStorage.getItem('token')
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  const { user } = useAppSelector((state) => state.blogReducer)
 
   const logOutHandler = () => {
     localStorage.removeItem('token')
+    dispatch(removeUser())
     navigate('/')
   }
 
@@ -29,8 +28,8 @@ const AuthBlock: FC<AuthBlockProps> = ({ data }) => {
       </Link>
       <Link to="/profile">
         <button className={styles.btnProfile} type="button">
-          <span className={styles.name}>{data?.user.username}</span>
-          <img className={styles.img} src={avatar} alt="avatar" />
+          <span className={styles.name}>{user?.username}</span>
+          <img className={styles.img} src={user?.image || avatar} alt="avatar" />
         </button>
       </Link>
       <Link to="/">
@@ -59,4 +58,4 @@ const AuthBlock: FC<AuthBlockProps> = ({ data }) => {
   return <div className={styles.wrapper}>{hasToken ? <Authorized /> : <UnAuthorized />}</div>
 }
 
-export default withUser(AuthBlock)
+export default AuthBlock

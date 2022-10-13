@@ -7,6 +7,9 @@ import { useCreateUserMutation } from '../../services/BlogService'
 import Form, { ErrorData } from '../../components/Form/Form'
 import signUpSchema from '../../schemes/signUpSchema'
 import Checkbox from '../../components/Form/Checkbox/Checkbox'
+import { addUser } from '../../store/reducers/blogSlice'
+import { useAppDispatch } from '../../hooks/redux'
+import Error from '../../components/Error'
 
 type SignUpData = {
   username: string
@@ -17,7 +20,8 @@ type SignUpData = {
 }
 
 const SignUpPage = () => {
-  const [createUser, { isLoading }] = useCreateUserMutation()
+  const [createUser, { isLoading, isError, error }] = useCreateUserMutation()
+  const dispatch = useAppDispatch()
   const [errorArray, setErrorArray] = useState<ErrorData<SignUpData>[]>([])
   const navigate = useNavigate()
 
@@ -26,6 +30,7 @@ const SignUpPage = () => {
     try {
       const res = await createUser({ user }).unwrap()
       localStorage.setItem('token', res.user.token!)
+      dispatch(addUser(res.user))
       navigate('/articles')
     } catch (e: any) {
       if (e?.data?.errors?.email) {
@@ -41,6 +46,10 @@ const SignUpPage = () => {
         ])
       }
     }
+  }
+
+  if (isError) {
+    return <Error error={error} />
   }
 
   const bot = (

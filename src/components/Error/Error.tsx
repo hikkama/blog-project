@@ -10,10 +10,24 @@ interface ErrorComponentProps {
 const Error: FC<ErrorComponentProps> = ({ error }) => {
   if ('status' in error!) {
     return (
-      <Alert message={`Error: ${error.status} `} description="Please try again later or reload" type="error" showIcon />
+      <Alert
+        style={{ marginBottom: 20 }}
+        message={`Error: ${error.status} `}
+        description="Please try again later or reload"
+        type="error"
+        showIcon
+      />
     )
   }
-  return <Alert message="Unknown Error" description="Please try again later or reload" type="error" showIcon />
+  return (
+    <Alert
+      style={{ marginBottom: 20 }}
+      message="Unknown Error"
+      description="Please try again later or reload"
+      type="error"
+      showIcon
+    />
+  )
 }
 
 export default Error

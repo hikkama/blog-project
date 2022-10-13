@@ -1,6 +1,7 @@
 import React, { ReactElement, useEffect } from 'react'
 import { FieldValues, useForm, Resolver, Path } from 'react-hook-form'
 import classNames from 'classnames'
+import { Alert } from 'antd'
 
 import styles from './Form.module.scss'
 
@@ -77,7 +78,7 @@ const Form = <T extends Record<string, unknown>>({
       >
         <span className={styles.btnText}>{button}</span>
       </button>
-      {isSuccess && <h2>Success</h2>}
+      {isSuccess && <Alert message="Successfully updated" type="success" showIcon />}
       <div className={styles.botCaption}>{botCaption}</div>
     </form>
   )

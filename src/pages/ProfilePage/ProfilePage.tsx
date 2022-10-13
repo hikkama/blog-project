@@ -5,6 +5,9 @@ import { useUpdateUserMutation } from '../../services/BlogService'
 import Form, { ErrorData } from '../../components/Form/Form'
 import signInSchema from '../../schemes/signInSchema'
 import Input from '../../components/Form/Input/Input'
+import { addUser } from '../../store/reducers/blogSlice'
+import { useAppDispatch } from '../../hooks/redux'
+import Error from '../../components/Error'
 
 type ProfileData = {
   username: string
@@ -14,14 +17,16 @@ type ProfileData = {
 }
 // 1232421
 const ProfilePage = () => {
-  const [updateUser, { data: user, isLoading, isSuccess }] = useUpdateUserMutation()
+  const [updateUser, { data: user, isLoading, isSuccess, isError, error }] = useUpdateUserMutation()
+  const dispatch = useAppDispatch()
   const [errorArray, setErrorArray] = useState<ErrorData<ProfileData>[]>([])
 
   const onSubmit = async (data: ProfileData) => {
     const token = localStorage.getItem('token')
     try {
+      console.log(data)
       const res = await updateUser({ user: data, token: token! }).unwrap()
-      console.log(res)
+      dispatch(addUser({ ...res.user, image: data.avatar }))
     } catch (e: any) {
       console.log(e)
       if (e?.data?.errors?.email) {
@@ -37,6 +42,10 @@ const ProfilePage = () => {
         ])
       }
     }
+  }
+
+  if (isError) {
+    return <Error error={error} />
   }
 
   return (

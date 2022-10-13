@@ -6,6 +6,9 @@ import { useLogUserMutation } from '../../services/BlogService'
 import Form, { ErrorData } from '../../components/Form/Form'
 import Input from '../../components/Form/Input/Input'
 import signInSchema from '../../schemes/signInSchema'
+import { useAppDispatch } from '../../hooks/redux'
+import { addUser } from '../../store/reducers/blogSlice'
+import Error from '../../components/Error'
 
 type SignInData = {
   email: string
@@ -13,7 +16,8 @@ type SignInData = {
 }
 
 const SignInPage = () => {
-  const [logUser, { isLoading }] = useLogUserMutation()
+  const [logUser, { isLoading, isError, error }] = useLogUserMutation()
+  const dispatch = useAppDispatch()
   const [errorArray, setErrorArray] = useState<ErrorData<SignInData>[]>([])
   const navigate = useNavigate()
 
@@ -22,6 +26,8 @@ const SignInPage = () => {
     try {
       const res = await logUser({ user }).unwrap()
       localStorage.setItem('token', res.user.token!)
+      console.log('login user')
+      dispatch(addUser(res.user))
       navigate('/articles')
     } catch (e: any) {
       if (e?.data?.errors?.['email or password']) {
@@ -35,6 +41,10 @@ const SignInPage = () => {
         ])
       }
     }
+  }
+
+  if (isError) {
+    return <Error error={error} />
   }
 
   const bot = (
