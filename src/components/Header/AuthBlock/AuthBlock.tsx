@@ -1,11 +1,17 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 import avatar from '../../../assets/img/avatar.svg'
+import { withUser } from '../../../hoc/withUser'
+import { UserResponse } from '../../../models/responses'
 
 import styles from './AuthBlock.module.scss'
 
-const AuthBlock = () => {
+interface AuthBlockProps {
+  data: UserResponse
+}
+
+const AuthBlock: FC<AuthBlockProps> = ({ data }) => {
   const hasToken = !!localStorage.getItem('token')
   const navigate = useNavigate()
 
@@ -23,7 +29,7 @@ const AuthBlock = () => {
       </Link>
       <Link to="/profile">
         <button className={styles.btnProfile} type="button">
-          <span className={styles.name}>John Doe</span>
+          <span className={styles.name}>{data?.user.username}</span>
           <img className={styles.img} src={avatar} alt="avatar" />
         </button>
       </Link>
@@ -53,4 +59,4 @@ const AuthBlock = () => {
   return <div className={styles.wrapper}>{hasToken ? <Authorized /> : <UnAuthorized />}</div>
 }
 
-export default AuthBlock
+export default withUser(AuthBlock)

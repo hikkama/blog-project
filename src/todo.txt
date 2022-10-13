@@ -9,3 +9,11 @@ Todo
 https://github.com/INRISTIC/BlogKata/tree/master/src/pages
 https://github.com/YaroslavTaranich/KATA-blog
 https://github.com/Zwan3ih/Blog-Kata
+
+1. Что  общего между формами(регистрации, входа, изменения)
+    а) - одна стилистика, хеадер, регэксп,  подпись(если ннужна)
+    б) - инпуты, кнопка,
+
+
+То есть можно вынести обертку формы в отдельный компонент
+Вынести в компоненты инпуты(вместе с label), кнопку,

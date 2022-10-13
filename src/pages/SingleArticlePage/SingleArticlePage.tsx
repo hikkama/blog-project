@@ -4,7 +4,7 @@ import { Spin } from 'antd'
 
 import ArticleItem from '../../components/ArticleItem'
 import { useFetchArticleQuery } from '../../services/BlogService'
-import ErrorComponent from '../../components/ErrorComponent'
+import Error from '../../components/Error'
 
 const SingleArticlePage = () => {
   const { slug } = useParams()
@@ -17,7 +17,7 @@ const SingleArticlePage = () => {
           <Spin size="large" />
         </div>
       )}
-      {isError && <ErrorComponent error={error} />}
+      {isError && <Error error={error} />}
       {article && <ArticleItem article={article} />}
     </div>
   )

@@ -1,0 +1,69 @@
+.form {
+  max-width: 384px;
+  padding: 48px 32px;
+  margin: 0 auto;
+
+  background: #fff;
+  border: 1px solid #d9d9d9;
+  box-shadow: 0 22px 106px rgba(0, 0, 0, 0.07), 0 9.19107px 44.2843px rgba(0, 0, 0, 0.0503198),
+    0 4.91399px 23.6765px rgba(0, 0, 0, 0.0417275), 0 2.75474px 13.2728px rgba(0, 0, 0, 0.035),
+    0 1.46302px 7.04911px rgba(0, 0, 0, 0.0282725), 0 0.608796px 2.93329px rgba(0, 0, 0, 0.0196802);
+  border-radius: 6px;
+}
+
+.title {
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.botCaption {
+  text-align: center;
+  color: #8c8c8c;
+}
+
+.btn {
+  border: none;
+  padding: 8px 0;
+
+  width: 100%;
+  background: #1890ff;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  position: relative;
+  &Text {
+    color: #fff;
+    font-size: 16px;
+  }
+
+  &:disabled {
+    cursor: initial;
+    background: #76b7f8;
+  }
+
+  &Loading::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 0;
+    left: 0;
+    right: 28%;
+    bottom: 0;
+    margin: auto;
+    border: 4px solid transparent;
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: button-loading-spinner 1s ease infinite;
+  }
+}
+@keyframes button-loading-spinner {
+  from {
+    transform: rotate(0turn);
+  }
+
+  to {
+    transform: rotate(1turn);
+  }
+}

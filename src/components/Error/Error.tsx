@@ -7,7 +7,7 @@ interface ErrorComponentProps {
   error: FetchBaseQueryError | SerializedError | undefined
 }
 
-const ErrorComponent: FC<ErrorComponentProps> = ({ error }) => {
+const Error: FC<ErrorComponentProps> = ({ error }) => {
   if ('status' in error!) {
     return (
       <Alert message={`Error: ${error.status} `} description="Please try again later or reload" type="error" showIcon />
@@ -16,4 +16,4 @@ const ErrorComponent: FC<ErrorComponentProps> = ({ error }) => {
   return <Alert message="Unknown Error" description="Please try again later or reload" type="error" showIcon />
 }
 
-export default ErrorComponent
+export default Error

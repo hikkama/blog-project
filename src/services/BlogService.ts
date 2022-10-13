@@ -56,7 +56,7 @@ export const blogAPI = createApi({
       query: ({ user, token }) => ({
         url: '/user',
         method: 'PUT',
-        body: user,
+        body: { user },
         headers: {
           Authorization: `Token ${token}`,
         },
@@ -71,4 +71,5 @@ export const {
   useCreateUserMutation,
   useLogUserMutation,
   useLazyGetCurrentUserQuery,
+  useUpdateUserMutation,
 } = blogAPI

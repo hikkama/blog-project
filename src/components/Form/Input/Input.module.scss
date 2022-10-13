@@ -1,0 +1,28 @@
+.label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+
+.inputTitle {
+  font-size: 14px;
+  display: inline-block;
+  margin-bottom: 2px;
+}
+
+.error {
+  color: #f5222d;
+  font-size: 14px;
+}
+
+.input {
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 16px;
+}
+
+.inputErr {
+  border: 1px solid #f5222d;
+}

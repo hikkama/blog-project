@@ -1,13 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { useForm, SubmitHandler } from 'react-hook-form'
-import classNames from 'classnames'
+import { yupResolver } from '@hookform/resolvers/yup'
 
+import Input from '../../components/Form/Input/Input'
 import { useCreateUserMutation } from '../../services/BlogService'
+import Form, { ErrorData } from '../../components/Form/Form'
+import signUpSchema from '../../schemes/signUpSchema'
+import Checkbox from '../../components/Form/Checkbox/Checkbox'
 
-import styles from './SignUpPage.module.scss'
-
-interface FormInputsData {
+type SignUpData = {
   username: string
   email: string
   password: string
@@ -17,146 +18,52 @@ interface FormInputsData {
 
 const SignUpPage = () => {
   const [createUser, { isLoading }] = useCreateUserMutation()
+  const [errorArray, setErrorArray] = useState<ErrorData<SignUpData>[]>([])
   const navigate = useNavigate()
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    setError,
-    formState: { errors, isValid },
-  } = useForm<FormInputsData>({ mode: 'onBlur' })
-
-  const onSubmit: SubmitHandler<FormInputsData> = async ({ username, email, password }) => {
+  const onSubmit = async ({ username, email, password }: SignUpData) => {
     const user = { username, email, password }
     try {
       const res = await createUser({ user }).unwrap()
-      console.log(res)
       localStorage.setItem('token', res.user.token!)
       navigate('/articles')
     } catch (e: any) {
       if (e?.data?.errors?.email) {
-        setError('email', {
-          type: 'serverError',
-          message: 'Email is already taken.',
-        })
+        setErrorArray((prev) => [
+          ...prev,
+          { name: 'email', option: { type: 'server', message: `Email ${e.data.errors.email}` } },
+        ])
       }
       if (e?.data?.errors?.username) {
-        setError('username', {
-          type: 'serverError',
-          message: 'Username is already taken.',
-        })
+        setErrorArray((prev) => [
+          ...prev,
+          { name: 'username', option: { type: 'server', message: `Username ${e.data.errors.username}` } },
+        ])
       }
     }
   }
 
-  const passRegExp =
-    /^[a-zA-Z0-9][-_.+!#$%&'*/=?^`{|]?([a-zA-Z0-9][-_.+!#$%&'*\\=?^`{|]?)*[a-zA-Z0-9]@[a-zA-Z0-9][-.]?([a-zA-Z][-.]?)*[a-zA-Z0-9]\.[a-zA-Z0-9]+([.-]?[a-zA-Z])*[a-zA-Z0-9]*$/
-
+  const bot = (
+    <>
+      Already have an account? <Link to="/sign-in">Sign In.</Link>
+    </>
+  )
   return (
-    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-      <h3 className={styles.title}>Create new account</h3>
-
-      <label className={styles.label}>
-        <span className={styles.inputTitle}>Username</span>
-        <input
-          {...register('username', {
-            required: 'Username is required',
-            minLength: { value: 3, message: 'Your username needs to be at least 3 characters.' },
-            maxLength: { value: 20, message: 'Your username needs to be no more than 20 characters.' },
-          })}
-          className={classNames({
-            [styles.input]: true,
-            [styles.inputErr]: errors?.username,
-          })}
-          type="text"
-          placeholder="Username"
-        />
-        {errors?.username && <span className={styles.error}>{errors.username?.message || 'Error'}</span>}
-      </label>
-
-      <label className={styles.label}>
-        <span className={styles.inputTitle}>Email address</span>
-        <input
-          {...register('email', {
-            required: 'Email address is required',
-            pattern: { value: passRegExp, message: 'Please enter a valid e-mail address' },
-          })}
-          className={classNames({
-            [styles.input]: true,
-            [styles.inputErr]: errors?.email,
-          })}
-          type="text"
-          placeholder="Email address"
-        />
-        {errors?.email && <span className={styles.error}>{errors.email?.message || 'Error'}</span>}
-      </label>
-
-      <label className={styles.label}>
-        <span className={styles.inputTitle}>Password</span>
-        <input
-          {...register('password', {
-            required: 'Password is required',
-            minLength: { value: 6, message: 'Your password needs to be at least 6 characters.' },
-            maxLength: { value: 40, message: 'Your password needs to be no more than 40 characters.' },
-          })}
-          className={classNames({
-            [styles.input]: true,
-            [styles.inputErr]: errors?.password,
-          })}
-          type="password"
-          placeholder="Password"
-        />
-        {errors?.password && <span className={styles.error}>{errors.password?.message || 'Error'}</span>}
-      </label>
-
-      <label className={styles.label}>
-        <span className={styles.inputTitle}>Repeat Password</span>
-        <input
-          {...register('repeatPassword', {
-            required: 'Passwords must match',
-            validate: (val: string) => {
-              if (watch('password') != val) {
-                return 'Passwords must match'
-              }
-            },
-          })}
-          className={classNames({
-            [styles.input]: true,
-            [styles.inputErr]: errors?.repeatPassword,
-          })}
-          type="password"
-          placeholder="Password"
-        />
-        {errors?.repeatPassword && <span className={styles.error}>{errors.repeatPassword?.message || 'Error'}</span>}
-      </label>
-
-      <label className={`${styles.label} ${styles.checkboxLabel}`}>
-        <input
-          {...register('agreement', { required: 'Agreement is required' })}
-          className={styles.check}
-          type="checkbox"
-        />
-        <span className={styles.checkbox}></span>
-        <span className={styles.checkboxTitle}>I agree to the processing of my personal information</span>
-        {errors?.agreement && <div className={styles.error}>{errors.agreement?.message || 'Error'}</div>}
-      </label>
-
-      <button
-        type="submit"
-        disabled={!isValid || isLoading}
-        className={classNames({
-          [styles.btn]: true,
-          [styles.btnLoading]: isLoading,
-        })}
-      >
-        <span className={styles.btnText}>Create</span>
-      </button>
-
-      <div className={styles.signIn}>
-        Already have an account? <Link to="/sign-in">Sign In.</Link>
-      </div>
-    </form>
+    <Form<SignUpData>
+      title="Create new account"
+      botCaption={bot}
+      resolver={yupResolver(signUpSchema)}
+      onSubmit={onSubmit}
+      serverErrors={errorArray}
+      button="Create"
+      isLoading={isLoading}
+    >
+      <Input title="Username" placeholder="Username" name="username" />
+      <Input title="Email" placeholder="Email" name="email" />
+      <Input type="password" title="Password" placeholder="Password" name="password" />
+      <Input type="password" title="Repeat Password" placeholder="Password" name="repeatPassword" />
+      <Checkbox name="agreement" title="I agree to the processing of my personal information" />
+    </Form>
   )
 }
 

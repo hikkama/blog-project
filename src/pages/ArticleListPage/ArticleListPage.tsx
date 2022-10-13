@@ -6,7 +6,7 @@ import { useFetchAllArticlesQuery, useLazyGetCurrentUserQuery } from '../../serv
 import { addArticles } from '../../store/reducers/blogSlice'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import PaginationBlock from '../../components/PaginationBlock'
-import ErrorComponent from '../../components/ErrorComponent'
+import Error from '../../components/Error'
 
 const ArticleListPage = () => {
   const dispatch = useAppDispatch()
@@ -34,7 +34,7 @@ const ArticleListPage = () => {
           <Spin size="large" />
         </div>
       )}
-      {isError && <ErrorComponent error={error} />}
+      {isError && <Error error={error} />}
       {data && (
         <>
           <ArticleList />
