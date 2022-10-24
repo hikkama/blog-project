@@ -1,19 +1,8 @@
 Todo
-    1. Сделать Layout /\
-    2. Сделать Routes нормально https://github.com/INRISTIC/BlogKata/blob/master/src/App.jsx /\
-    3. Сделать Header нормально кнопки лого и тп  /\
-    4. Сделать отдельный компонент по правой части header /\
-    5. Подумать как реализовать страницы входа, регистрации и изменения, чтобы был один компонент
-    6. Сделать hoc когда user зареган или нет https://github.com/INRISTIC/BlogKata/tree/master/src/hoc
+    1. Посмотреть по Generic'ам еще видео и понять как написаны формы
+    2. Изучить fieldset в react hook form и написать САМОМУ
+    3. Написать самому форму по статье
 
 https://github.com/INRISTIC/BlogKata/tree/master/src/pages
 https://github.com/YaroslavTaranich/KATA-blog
 https://github.com/Zwan3ih/Blog-Kata
-
-1. Что  общего между формами(регистрации, входа, изменения)
-    а) - одна стилистика, хеадер, регэксп,  подпись(если ннужна)
-    б) - инпуты, кнопка,
-
-
-То есть можно вынести обертку формы в отдельный компонент
-Вынести в компоненты инпуты(вместе с label), кнопку,

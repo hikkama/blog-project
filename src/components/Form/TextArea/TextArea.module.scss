@@ -1,0 +1,27 @@
+.label {
+  composes: label from '../Input/Input.module.scss';
+}
+
+.inputTitle {
+  composes: inputTitle from '../Input/Input.module.scss';
+}
+
+.error {
+  composes: error from '../Input/Input.module.scss';
+}
+
+.textarea {
+  composes: input from '../Input/Input.module.scss';
+  height: 168px;
+  width: 100%;
+  margin: 0;
+  transition: box-shadow 0.3s;
+
+  &:focus {
+    box-shadow: 0 0 1px 1px var(--primary-color);
+  }
+}
+
+.textareaErr {
+  composes: inputErr from '../Input/Input.module.scss';
+}

@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup'
 
 import { useLogUserMutation } from '../../services/BlogService'
-import Form, { ErrorData } from '../../components/Form/Form'
+import UserForm, { ErrorData } from '../../components/Form/UserForm/UserForm'
 import Input from '../../components/Form/Input/Input'
 import signInSchema from '../../schemes/signInSchema'
 import { useAppDispatch } from '../../hooks/redux'
@@ -26,7 +26,6 @@ const SignInPage = () => {
     try {
       const res = await logUser({ user }).unwrap()
       localStorage.setItem('token', res.user.token!)
-      console.log('login user')
       dispatch(addUser(res.user))
       navigate('/articles')
     } catch (e: any) {
@@ -53,7 +52,7 @@ const SignInPage = () => {
     </>
   )
   return (
-    <Form<SignInData>
+    <UserForm<SignInData>
       title="Sign in"
       botCaption={bot}
       resolver={yupResolver(signInSchema)}
@@ -64,7 +63,7 @@ const SignInPage = () => {
     >
       <Input title="Email" placeholder="Email" name="email" />
       <Input type="password" title="Password" placeholder="Password" name="password" />
-    </Form>
+    </UserForm>
   )
 }
 

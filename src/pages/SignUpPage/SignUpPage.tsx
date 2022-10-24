@@ -4,7 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 
 import Input from '../../components/Form/Input/Input'
 import { useCreateUserMutation } from '../../services/BlogService'
-import Form, { ErrorData } from '../../components/Form/Form'
+import UserForm, { ErrorData } from '../../components/Form/UserForm/UserForm'
 import signUpSchema from '../../schemes/signUpSchema'
 import Checkbox from '../../components/Form/Checkbox/Checkbox'
 import { addUser } from '../../store/reducers/blogSlice'
@@ -47,10 +47,9 @@ const SignUpPage = () => {
       }
     }
   }
-
-  if (isError) {
-    return <Error error={error} />
-  }
+  // if (isError) {
+  //   return <Error error={error} />
+  // }
 
   const bot = (
     <>
@@ -58,7 +57,7 @@ const SignUpPage = () => {
     </>
   )
   return (
-    <Form<SignUpData>
+    <UserForm<SignUpData>
       title="Create new account"
       botCaption={bot}
       resolver={yupResolver(signUpSchema)}
@@ -72,7 +71,7 @@ const SignUpPage = () => {
       <Input type="password" title="Password" placeholder="Password" name="password" />
       <Input type="password" title="Repeat Password" placeholder="Password" name="repeatPassword" />
       <Checkbox name="agreement" title="I agree to the processing of my personal information" />
-    </Form>
+    </UserForm>
   )
 }
 

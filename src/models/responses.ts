@@ -1,9 +1,13 @@
 import { ArticleData } from './articles'
 import { UserData } from './user'
 
-export interface ArticleResponse {
+export interface ArticlesResponse {
   articles: ArticleData[]
   articlesCount: number
+}
+
+export interface ArticleResponse {
+  article: ArticleData
 }
 
 export interface ServerErrorResponse {

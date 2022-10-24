@@ -1,0 +1,114 @@
+.btn {
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s linear;
+  font-weight: 400;
+  background-color: var(--background-color-base);
+
+  &Primary {
+    position: relative;
+    border-radius: 4px;
+    background: var(--primary-color);
+    width: 100%;
+    padding: 8px;
+    color: var(--btn-primary-color);
+    &:hover {
+      background-color: #0a7dea;
+      color: #fff;
+    }
+    &:disabled {
+      cursor: initial;
+      background: #76b7f8;
+    }
+  }
+
+  &Danger {
+    color: var(--highlight-color);
+    border: 1px solid var(--highlight-color);
+    &:hover {
+      background-color: var(--highlight-color);
+      color: var(--background-color-base);
+    }
+  }
+
+  &Outlined {
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    &:hover {
+      background-color: var(--primary-color);
+      color: var(--background-color-base);
+    }
+  }
+
+  &Success {
+    border: 1px solid var(--success-color);
+    color: var(--success-color);
+    border-radius: 5px;
+    &:hover {
+      background-color: var(--success-color);
+      color: var(--background-color-base);
+    }
+  }
+
+  &Text {
+    color: var(--heading-color);
+    &:hover {
+      color: var(--primary-color);
+    }
+  }
+
+  &Black {
+    border: 1px solid var(--text-color);
+    border-radius: 5px;
+    color: var(--text-color);
+
+    &:hover {
+      background-color: var(--text-color);
+      color: white;
+    }
+  }
+}
+
+.sm {
+  font-size: 12px;
+  padding: 6px 10px;
+}
+
+.md {
+  font-size: 16px;
+  padding: 9px 35px;
+  line-height: 23px;
+  border-radius: 6px;
+}
+
+.lg {
+  font-size: 18px;
+  padding: 6px 10px;
+  line-height: 28px;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 0;
+  left: 0;
+  right: 28%;
+  bottom: 0;
+  margin: auto;
+  border: 4px solid transparent;
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: button-loading-spinner 1s ease infinite;
+}
+
+@keyframes button-loading-spinner {
+  from {
+    transform: rotate(0turn);
+  }
+
+  to {
+    transform: rotate(1turn);
+  }
+}

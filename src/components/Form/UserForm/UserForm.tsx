@@ -1,9 +1,11 @@
 import React, { ReactElement, useEffect } from 'react'
 import { FieldValues, useForm, Resolver, Path } from 'react-hook-form'
-import classNames from 'classnames'
 import { Alert } from 'antd'
 
-import styles from './Form.module.scss'
+import FieldsWrapper from '../FieldsWrapper/FieldsWrapper'
+import Button from '../../Button/Button'
+
+import styles from './UserForm.module.scss'
 
 interface FormComponentProps<T extends FieldValues> {
   title: string
@@ -25,7 +27,7 @@ export interface ErrorData<T> {
   }
 }
 
-const Form = <T extends Record<string, unknown>>({
+const UserForm = <T extends Record<string, any>>({
   title,
   botCaption = null,
   onSubmit,
@@ -53,35 +55,33 @@ const Form = <T extends Record<string, unknown>>({
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)} {...rest}>
       <h3 className={styles.title}>{title}</h3>
-
-      {React.Children.map(children, (child) => {
-        if (child && child.props.name) {
-          return React.createElement(child.type, {
-            ...{
-              ...child.props,
-              register,
-              key: child.props.name,
-              errors: errors[child.props.name],
-            },
-          })
-        }
-        return child
-      })}
-
-      <button
-        type="submit"
-        disabled={!isValid || isLoading}
-        className={classNames({
-          [styles.btn]: true,
-          [styles.btnLoading]: isLoading,
+      <FieldsWrapper>
+        {React.Children.map(children, (child) => {
+          if (child && child.props.name) {
+            return React.createElement(child.type, {
+              ...{
+                ...child.props,
+                register,
+                key: child.props.name,
+                errors: errors[child.props.name],
+              },
+            })
+          }
+          return child
         })}
-      >
-        <span className={styles.btnText}>{button}</span>
-      </button>
-      {isSuccess && <Alert message="Successfully updated" type="success" showIcon />}
-      <div className={styles.botCaption}>{botCaption}</div>
+        <Button
+          title={button}
+          type="Primary"
+          disabled={!isValid || isLoading}
+          btnSize="md"
+          isLoading={isLoading}
+          submit
+        />
+        {isSuccess && <Alert message="Successfully updated" type="success" showIcon />}
+        <div className={styles.botCaption}>{botCaption}</div>
+      </FieldsWrapper>
     </form>
   )
 }
 
-export default Form
+export default UserForm

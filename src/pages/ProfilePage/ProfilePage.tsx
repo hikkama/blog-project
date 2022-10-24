@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup'
 
 import { useUpdateUserMutation } from '../../services/BlogService'
-import Form, { ErrorData } from '../../components/Form/Form'
+import UserForm, { ErrorData } from '../../components/Form/UserForm/UserForm'
 import signInSchema from '../../schemes/signInSchema'
 import Input from '../../components/Form/Input/Input'
 import { addUser } from '../../store/reducers/blogSlice'
@@ -15,7 +15,7 @@ type ProfileData = {
   newPassword: string
   avatar: string
 }
-// 1232421
+
 const ProfilePage = () => {
   const [updateUser, { data: user, isLoading, isSuccess, isError, error }] = useUpdateUserMutation()
   const dispatch = useAppDispatch()
@@ -24,11 +24,9 @@ const ProfilePage = () => {
   const onSubmit = async (data: ProfileData) => {
     const token = localStorage.getItem('token')
     try {
-      console.log(data)
       const res = await updateUser({ user: data, token: token! }).unwrap()
       dispatch(addUser({ ...res.user, image: data.avatar }))
     } catch (e: any) {
-      console.log(e)
       if (e?.data?.errors?.email) {
         setErrorArray((prev) => [
           ...prev,
@@ -50,7 +48,7 @@ const ProfilePage = () => {
 
   return (
     <>
-      <Form<ProfileData>
+      <UserForm<ProfileData>
         title="Edit profile"
         resolver={yupResolver(signInSchema)}
         onSubmit={onSubmit}
@@ -63,7 +61,7 @@ const ProfilePage = () => {
         <Input title="Email" placeholder="Email" name="email" />
         <Input type="password" title="Password" placeholder="Password" name="password" />
         <Input title="Avatar img(url)" placeholder="Avatar image" name="avatar" />
-      </Form>
+      </UserForm>
     </>
   )
 }

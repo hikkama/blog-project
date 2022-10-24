@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import avatar from '../../../assets/img/avatar.svg'
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux'
 import { removeUser } from '../../../store/reducers/blogSlice'
+import Button from '../../Button/Button'
 
 import styles from './AuthBlock.module.scss'
 
@@ -22,20 +23,14 @@ const AuthBlock: FC = () => {
   const Authorized = (): JSX.Element => (
     <>
       <Link to="/new-article">
-        <button className={styles.btnGreen} type="button">
-          Create article
-        </button>
+        <Button type="Success" btnSize="sm" title="Create article" />
       </Link>
       <Link to="/profile">
-        <button className={styles.btnProfile} type="button">
-          <span className={styles.name}>{user?.username}</span>
-          <img className={styles.img} src={user?.image || avatar} alt="avatar" />
-        </button>
+        <Button type="Text" title={user?.username} />
+        <img className={styles.img} src={user?.image || avatar} alt="avatar" />
       </Link>
       <Link to="/">
-        <button onClick={logOutHandler} className={styles.btnLogOut} type="button">
-          Log Out
-        </button>
+        <Button onClick={logOutHandler} type="Black" title="Log Out" />
       </Link>
     </>
   )
@@ -43,14 +38,10 @@ const AuthBlock: FC = () => {
   const UnAuthorized = (): JSX.Element => (
     <>
       <Link to="/sign-in">
-        <button className={styles.btn} type="button">
-          Sign In
-        </button>
+        <Button type="Text" title="Sign In" />
       </Link>
       <Link to="/sign-up">
-        <button className={styles.btnSignUp} type="button">
-          Sign Up
-        </button>
+        <Button type="Success" title="Sign Up" />
       </Link>
     </>
   )

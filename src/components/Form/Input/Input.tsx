@@ -6,7 +6,7 @@ import styles from './Input.module.scss'
 
 interface FormFieldProps<T extends FieldValues> extends InputHTMLAttributes<HTMLInputElement> {
   name: Path<T>
-  title: string
+  title?: string
   register?: UseFormRegister<T> | null
   rules?: RegisterOptions
   errors?: FieldError | undefined
@@ -14,8 +14,7 @@ interface FormFieldProps<T extends FieldValues> extends InputHTMLAttributes<HTML
 
 const Input = <T extends Record<string, unknown>>({
   name,
-  title,
-  children,
+  title = undefined,
   errors = undefined,
   register = null,
   rules = undefined,
@@ -24,7 +23,6 @@ const Input = <T extends Record<string, unknown>>({
   return (
     <label className={styles.label}>
       <span className={styles.inputTitle}>{title}</span>
-      {children}
       <input
         className={classNames({
           [styles.input]: true,

@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, HTMLAttributes } from 'react'
 import { FieldError, FieldValues, RegisterOptions, UseFormRegister } from 'react-hook-form'
 
 import styles from './Checkbox.module.scss'

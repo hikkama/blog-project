@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react'
 
-import { ArticleResponse, SignUpRequest, UserResponse } from '../models/responses'
-import { ArticleData } from '../models/articles'
+import { ArticleResponse, ArticlesResponse, SignUpRequest, UserResponse } from '../models/responses'
+import { ArticleData, ArticlePostData } from '../models/articles'
 import { UserData } from '../models/user'
 
 export const blogAPI = createApi({
@@ -10,7 +10,7 @@ export const blogAPI = createApi({
     baseUrl: 'https://blog.kata.academy/api/',
   }),
   endpoints: (build) => ({
-    fetchAllArticles: build.query<ArticleResponse, number>({
+    fetchAllArticles: build.query<ArticlesResponse, number>({
       query: (offset = 0) => ({
         url: '/articles',
         params: {
@@ -62,6 +62,17 @@ export const blogAPI = createApi({
         },
       }),
     }),
+
+    createArticle: build.mutation<ArticleResponse, { article: ArticlePostData; token: string }>({
+      query: ({ article, token }) => ({
+        url: '/article',
+        method: 'POST',
+        body: { article },
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      }),
+    }),
   }),
 })
 
@@ -72,4 +83,5 @@ export const {
   useLogUserMutation,
   useLazyGetCurrentUserQuery,
   useUpdateUserMutation,
+  useCreateArticleMutation,
 } = blogAPI

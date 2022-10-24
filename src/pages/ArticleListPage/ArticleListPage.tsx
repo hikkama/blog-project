@@ -27,9 +27,6 @@ const ArticleListPage = () => {
     })()
   }, [token])
 
-  console.log(error)
-  console.log(userError)
-
   useEffect(() => {
     if (!user) return
 
