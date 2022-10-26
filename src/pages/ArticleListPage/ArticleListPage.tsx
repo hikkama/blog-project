@@ -10,16 +10,18 @@ import Error from '../../components/Error'
 
 const ArticleListPage = () => {
   const token = localStorage.getItem('token')
-  const dispatch = useAppDispatch()
   const { page } = useAppSelector((state) => state.blogReducer)
-  const { isLoading, error, isError, data, refetch } = useFetchAllArticlesQuery(
+  const dispatch = useAppDispatch()
+
+  const { isLoading, error, isError, data, refetch, endpointName } = useFetchAllArticlesQuery(
     { offset: (page - 1) * 10, token: token! },
     {
       refetchOnMountOrArgChange: true,
     }
   )
-  const [getUser, { data: user, isError: isUserError, error: userError }] = useLazyGetCurrentUserQuery()
 
+  const [getUser, { data: user, isError: isUserError, error: userError, endpointName: userEndpointName }] =
+    useLazyGetCurrentUserQuery()
   useEffect(() => {
     if (!data) return
     dispatch(addArticles(data.articles))
@@ -45,8 +47,8 @@ const ArticleListPage = () => {
           <Spin size="large" />
         </div>
       )}
-      {isError && <Error error={error} />}
-      {isUserError && <Error error={userError} />}
+      {isError && <Error error={error} endpointName={endpointName} />}
+      {isUserError && <Error error={userError} endpointName={userEndpointName} />}
       {data && (
         <>
           <ArticleList refetch={refetch} />

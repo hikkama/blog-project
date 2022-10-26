@@ -5,15 +5,20 @@ import { Alert } from 'antd'
 
 interface ErrorComponentProps {
   error: FetchBaseQueryError | SerializedError | undefined
+  endpointName?: string | null
 }
 
-const Error: FC<ErrorComponentProps> = ({ error }) => {
+const Error: FC<ErrorComponentProps> = ({ error, endpointName = null }) => {
+  console.log(error)
   if ('status' in error!) {
     return (
       <Alert
         style={{ marginBottom: 20 }}
         message={`Error: ${error.status} `}
-        description="Please try again later or reload"
+        // @ts-ignore
+        description={`Please try again later or reload. Error message - ${
+          error.data?.errors?.message || error.error!
+        }. ${endpointName ? `In this endpoint - ${endpointName}` : ''}`}
         type="error"
         showIcon
       />

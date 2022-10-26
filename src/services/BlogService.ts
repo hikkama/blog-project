@@ -11,7 +11,7 @@ export const blogAPI = createApi({
   }),
   endpoints: (build) => ({
     fetchAllArticles: build.query<ArticlesResponse, { offset: number; token?: string }>({
-      query: ({ offset = 0, token = null }) => ({
+      query: ({ offset, token = null }) => ({
         url: '/articles',
         params: {
           limit: 10,
@@ -23,9 +23,12 @@ export const blogAPI = createApi({
       }),
     }),
 
-    fetchArticle: build.query<ArticleData, string>({
-      query: (slug: string) => ({
+    fetchArticle: build.query<ArticleData, { slug: string; token?: string }>({
+      query: ({ slug, token = null }) => ({
         url: `/articles/${slug}`,
+        headers: {
+          Authorization: `Token ${token}`,
+        },
       }),
       transformResponse: (response: { article: ArticleData }) => response.article,
     }),

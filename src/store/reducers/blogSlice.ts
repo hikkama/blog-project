@@ -27,7 +27,6 @@ export const blogSlice = createSlice({
     addUser: (state, action: PayloadAction<UserData>) => {
       state.user = { ...action.payload, token: null }
     },
-
     removeUser: (state) => {
       delete state.user
     },

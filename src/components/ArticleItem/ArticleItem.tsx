@@ -8,12 +8,13 @@ import styles from './ArticleItem.module.scss'
 
 interface ArticleItemProps {
   article: ArticleData
+  refetch?: () => void
 }
 
-const ArticleItem: FC<ArticleItemProps> = ({ article }) => {
+const ArticleItem: FC<ArticleItemProps> = ({ article, refetch = () => {} }) => {
   return (
     <div className={styles.article}>
-      <ArticleInfo article={article} />
+      <ArticleInfo article={article} refetch={refetch} />
       <div className={styles.body}>
         <ReactMarkdown>{article.body}</ReactMarkdown>
       </div>

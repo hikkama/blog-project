@@ -7,8 +7,16 @@ import { useFetchArticleQuery } from '../../services/BlogService'
 import Error from '../../components/Error'
 
 const SingleArticlePage = () => {
+  const token = localStorage.getItem('token')
   const { slug } = useParams()
-  const { data: article, isLoading, isError, error } = useFetchArticleQuery(slug!, { refetchOnMountOrArgChange: true })
+  const {
+    data: article,
+    isLoading,
+    isError,
+    error,
+    endpointName,
+    refetch,
+  } = useFetchArticleQuery({ slug: slug!, token: token! }, { refetchOnMountOrArgChange: true })
 
   return (
     <div>
@@ -17,8 +25,8 @@ const SingleArticlePage = () => {
           <Spin size="large" />
         </div>
       )}
-      {isError && <Error error={error} />}
-      {article && <ArticleItem article={article} />}
+      {isError && <Error error={error} endpointName={endpointName} />}
+      {article && <ArticleItem article={article} refetch={refetch} />}
     </div>
   )
 }

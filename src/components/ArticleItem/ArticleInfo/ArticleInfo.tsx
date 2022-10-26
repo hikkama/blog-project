@@ -32,7 +32,7 @@ const ArticleInfo: FC<ArticleInfoProps> = ({ article, wrapper = false, refetch =
   const error = () => {
     message.warning('You need to be logged in')
   }
-
+  console.log(favorited)
   const onClick = () => {
     const token = localStorage.getItem('token')
     if (token) {
