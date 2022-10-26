@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect } from 'react'
-import { FieldValues, useForm, Resolver, Path } from 'react-hook-form'
+import { FieldValues, useForm, Resolver, Path, DeepPartial } from 'react-hook-form'
 import { Alert } from 'antd'
 
 import FieldsWrapper from '../FieldsWrapper/FieldsWrapper'
@@ -14,6 +14,7 @@ interface FormComponentProps<T extends FieldValues> {
   resolver: Resolver<T> | undefined
   botCaption?: JSX.Element | null
   serverErrors?: ErrorData<T>[]
+  defaultValues?: DeepPartial<T>
   button: string
   isLoading: boolean
   isSuccess?: boolean
@@ -37,6 +38,7 @@ const UserForm = <T extends Record<string, any>>({
   button,
   isLoading,
   isSuccess = false,
+  defaultValues = undefined,
   ...rest
 }: FormComponentProps<T>): JSX.Element => {
   const {
@@ -44,7 +46,7 @@ const UserForm = <T extends Record<string, any>>({
     setError,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<T>({ mode: 'all', resolver })
+  } = useForm<T>({ mode: 'all', resolver, defaultValues })
 
   useEffect(() => {
     if (!serverErrors) return

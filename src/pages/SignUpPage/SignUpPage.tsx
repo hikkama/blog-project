@@ -9,7 +9,6 @@ import signUpSchema from '../../schemes/signUpSchema'
 import Checkbox from '../../components/Form/Checkbox/Checkbox'
 import { addUser } from '../../store/reducers/blogSlice'
 import { useAppDispatch } from '../../hooks/redux'
-import Error from '../../components/Error'
 
 type SignUpData = {
   username: string

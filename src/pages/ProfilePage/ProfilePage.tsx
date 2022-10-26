@@ -3,29 +3,27 @@ import { yupResolver } from '@hookform/resolvers/yup/dist/yup'
 
 import { useUpdateUserMutation } from '../../services/BlogService'
 import UserForm, { ErrorData } from '../../components/Form/UserForm/UserForm'
-import signInSchema from '../../schemes/signInSchema'
+import editProfileSchema from '../../schemes/editProfileSchema'
 import Input from '../../components/Form/Input/Input'
 import { addUser } from '../../store/reducers/blogSlice'
-import { useAppDispatch } from '../../hooks/redux'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import Error from '../../components/Error'
+import { UserData } from '../../models/user'
 
-type ProfileData = {
-  username: string
-  email: string
-  newPassword: string
-  avatar: string
-}
+type ProfileData = Partial<UserData>
 
 const ProfilePage = () => {
-  const [updateUser, { data: user, isLoading, isSuccess, isError, error }] = useUpdateUserMutation()
   const dispatch = useAppDispatch()
+  const { user: userState } = useAppSelector((state) => state.blogReducer)
+  const [updateUser, { data: user, isLoading, isSuccess, isError, error }] = useUpdateUserMutation()
   const [errorArray, setErrorArray] = useState<ErrorData<ProfileData>[]>([])
 
   const onSubmit = async (data: ProfileData) => {
     const token = localStorage.getItem('token')
     try {
+      console.log(data)
       const res = await updateUser({ user: data, token: token! }).unwrap()
-      dispatch(addUser({ ...res.user, image: data.avatar }))
+      dispatch(addUser({ ...res.user, image: data.image }))
     } catch (e: any) {
       if (e?.data?.errors?.email) {
         setErrorArray((prev) => [
@@ -49,8 +47,9 @@ const ProfilePage = () => {
   return (
     <>
       <UserForm<ProfileData>
+        defaultValues={userState}
         title="Edit profile"
-        resolver={yupResolver(signInSchema)}
+        resolver={yupResolver(editProfileSchema)}
         onSubmit={onSubmit}
         serverErrors={errorArray}
         button="Save"
@@ -60,7 +59,7 @@ const ProfilePage = () => {
         <Input title="Username" placeholder="Username" name="username" />
         <Input title="Email" placeholder="Email" name="email" />
         <Input type="password" title="Password" placeholder="Password" name="password" />
-        <Input title="Avatar img(url)" placeholder="Avatar image" name="avatar" />
+        <Input title="Avatar img(url)" placeholder="Avatar image" name="image" />
       </UserForm>
     </>
   )

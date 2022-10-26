@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 
-const signInSchema = yup
+const editProfileSchema = yup
   .object()
   .shape({
     username: yup.string().required('Username is required'),
@@ -10,4 +10,4 @@ const signInSchema = yup
   })
   .required()
 
-export default signInSchema
+export default editProfileSchema

@@ -6,13 +6,12 @@ import { UserData } from '../../models/user'
 interface BlogState {
   articles: ArticleData[]
   page: number
-  user: UserData | null
+  user?: UserData
 }
 
 const initialState: BlogState = {
   articles: [],
   page: 1,
-  user: null,
 }
 
 export const blogSlice = createSlice({
@@ -30,7 +29,7 @@ export const blogSlice = createSlice({
     },
 
     removeUser: (state) => {
-      state.user = null
+      delete state.user
     },
   },
 })
