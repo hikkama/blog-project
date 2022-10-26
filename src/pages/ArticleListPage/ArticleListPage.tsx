@@ -11,7 +11,9 @@ import Error from '../../components/Error'
 const ArticleListPage = () => {
   const dispatch = useAppDispatch()
   const { page } = useAppSelector((state) => state.blogReducer)
-  const { isLoading, error, isError, data } = useFetchAllArticlesQuery((page - 1) * 10)
+  const { isLoading, error, isError, data } = useFetchAllArticlesQuery((page - 1) * 10, {
+    refetchOnMountOrArgChange: true,
+  })
   const [getUser, { data: user, isError: isUserError, error: userError }] = useLazyGetCurrentUserQuery()
   const token = localStorage.getItem('token')
 

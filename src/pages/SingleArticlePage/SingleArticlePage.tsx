@@ -8,7 +8,7 @@ import Error from '../../components/Error'
 
 const SingleArticlePage = () => {
   const { slug } = useParams()
-  const { data: article, isLoading, isError, error } = useFetchArticleQuery(slug!)
+  const { data: article, isLoading, isError, error } = useFetchArticleQuery(slug!, { refetchOnMountOrArgChange: true })
 
   return (
     <div>

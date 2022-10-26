@@ -35,7 +35,7 @@ export const blogAPI = createApi({
       }),
     }),
 
-    logUser: build.mutation<any, any>({
+    logUser: build.mutation<UserResponse, { user: Partial<UserData> }>({
       query: (user) => ({
         url: '/users/login',
         method: 'POST',
@@ -65,9 +65,36 @@ export const blogAPI = createApi({
 
     createArticle: build.mutation<ArticleResponse, { article: ArticlePostData; token: string }>({
       query: ({ article, token }) => ({
-        url: '/article',
+        url: '/articles',
         method: 'POST',
         body: { article },
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      }),
+    }),
+
+    getArticle: build.query<{ article: ArticleData }, string>({
+      query: (slug) => ({
+        url: `/articles/${slug}`,
+      }),
+    }),
+
+    editArticle: build.mutation<{ article: ArticleData }, { article: ArticlePostData; slug: string; token: string }>({
+      query: ({ article, slug, token }) => ({
+        url: `/articles/${slug}`,
+        method: 'PUT',
+        body: { article },
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      }),
+    }),
+
+    deleteArticle: build.mutation({
+      query: ({ slug, token }) => ({
+        url: `/articles/${slug}`,
+        method: 'DELETE',
         headers: {
           Authorization: `Token ${token}`,
         },
@@ -84,4 +111,7 @@ export const {
   useLazyGetCurrentUserQuery,
   useUpdateUserMutation,
   useCreateArticleMutation,
+  useGetArticleQuery,
+  useEditArticleMutation,
+  useDeleteArticleMutation,
 } = blogAPI

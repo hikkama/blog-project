@@ -12,7 +12,7 @@ interface ButtonProps extends HTMLProps<HTMLButtonElement> {
 }
 
 type ButtonTypes = 'Danger' | 'Outlined' | 'Success' | 'Black' | 'Primary' | 'Text'
-type ButtonSizes = 'sm' | 'md' | 'lg'
+type ButtonSizes = 'sm' | 'smLong' | 'md' | 'lg'
 
 const Button: FC<ButtonProps> = ({ title, type, btnSize = 'lg', isLoading = false, submit = false, ...rest }) => {
   const classesBtn = classNames({

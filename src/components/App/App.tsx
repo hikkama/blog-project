@@ -12,6 +12,7 @@ import { useLazyGetCurrentUserQuery } from '../../services/BlogService'
 import { useAppDispatch } from '../../hooks/redux'
 import { addUser } from '../../store/reducers/blogSlice'
 import NewArticlePage from '../../pages/NewArticlePage'
+import EditArticlePage from '../../pages/EditArticlePage'
 
 // https://www.figma.com/file/XXBjJXew3xpfbOZUnO9QVB/Blog?node-id=9582%3A0
 // https://api.realworld.io/api-docs/
@@ -28,6 +29,7 @@ const App: FC = () => {
         <Route path="/" element={<ArticleListPage />} />
         <Route path="/articles" element={<ArticleListPage />} />
         <Route path="/articles/:slug" element={<SingleArticlePage />} />
+        <Route path="/articles/:slug/edit" element={<EditArticlePage />} />
         <Route path="/sign-in" element={<SignInPage />} />
         <Route path="/sign-up" element={<SignUpPage />} />
         <Route path="/profile" element={<ProfilePage />} />

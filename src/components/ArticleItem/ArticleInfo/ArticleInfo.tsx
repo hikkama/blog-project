@@ -5,6 +5,8 @@ import { Tag } from 'antd'
 
 import AuthorBlock from '../AuthorBlock'
 import { ArticleData } from '../../../models/articles'
+import ArticleControl from '../ArticleControl/ArticleControl'
+import { useAppSelector } from '../../../hooks/redux'
 
 import styles from './ArticleInfo.module.scss'
 
@@ -15,6 +17,7 @@ interface ArticleInfoProps {
 
 const ArticleInfo: FC<ArticleInfoProps> = ({ article, wrapper = false }) => {
   const { slug, tagList, title, favoritesCount, description } = article
+  const { user } = useAppSelector((state) => state.blogReducer)
 
   return (
     <div className={wrapper ? styles.withWrapper : styles.noWrapper}>
@@ -42,8 +45,10 @@ const ArticleInfo: FC<ArticleInfoProps> = ({ article, wrapper = false }) => {
         </ul>
         <div className={wrapper ? styles.desc : styles.text}>{description}</div>
       </div>
-
-      <AuthorBlock author={article.author} date={article.createdAt} />
+      <div>
+        <AuthorBlock author={article.author} date={article.createdAt} />
+        {!wrapper && user?.username === article.author.username && <ArticleControl />}
+      </div>
     </div>
   )
 }
