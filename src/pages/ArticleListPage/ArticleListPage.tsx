@@ -9,13 +9,16 @@ import PaginationBlock from '../../components/PaginationBlock'
 import Error from '../../components/Error'
 
 const ArticleListPage = () => {
+  const token = localStorage.getItem('token')
   const dispatch = useAppDispatch()
   const { page } = useAppSelector((state) => state.blogReducer)
-  const { isLoading, error, isError, data } = useFetchAllArticlesQuery((page - 1) * 10, {
-    refetchOnMountOrArgChange: true,
-  })
+  const { isLoading, error, isError, data, refetch } = useFetchAllArticlesQuery(
+    { offset: (page - 1) * 10, token: token! },
+    {
+      refetchOnMountOrArgChange: true,
+    }
+  )
   const [getUser, { data: user, isError: isUserError, error: userError }] = useLazyGetCurrentUserQuery()
-  const token = localStorage.getItem('token')
 
   useEffect(() => {
     if (!data) return
@@ -46,7 +49,7 @@ const ArticleListPage = () => {
       {isUserError && <Error error={userError} />}
       {data && (
         <>
-          <ArticleList />
+          <ArticleList refetch={refetch} />
           <PaginationBlock total={data.articlesCount} />
         </>
       )}

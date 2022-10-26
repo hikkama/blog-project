@@ -6,7 +6,7 @@ import { useAppSelector } from '../../hooks/redux'
 
 import styles from './ArticleList.module.scss'
 
-const ArticleList: FC = () => {
+const ArticleList = ({ refetch = () => {} }: { refetch?: () => void }) => {
   const { articles } = useAppSelector((state) => state.blogReducer)
 
   return (
@@ -14,7 +14,7 @@ const ArticleList: FC = () => {
       {articles?.map((article: ArticleData, index) => {
         return (
           <li className={styles.articleItem} key={`${article.createdAt}-${index}`}>
-            <ArticleInfo article={article} wrapper />
+            <ArticleInfo refetch={refetch} article={article} wrapper />
           </li>
         )
       })}

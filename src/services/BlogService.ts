@@ -10,12 +10,15 @@ export const blogAPI = createApi({
     baseUrl: 'https://blog.kata.academy/api/',
   }),
   endpoints: (build) => ({
-    fetchAllArticles: build.query<ArticlesResponse, number>({
-      query: (offset = 0) => ({
+    fetchAllArticles: build.query<ArticlesResponse, { offset: number; token?: string }>({
+      query: ({ offset = 0, token = null }) => ({
         url: '/articles',
         params: {
           limit: 10,
           offset,
+        },
+        headers: {
+          Authorization: `Token ${token}`,
         },
       }),
     }),
@@ -91,9 +94,29 @@ export const blogAPI = createApi({
       }),
     }),
 
-    deleteArticle: build.mutation({
+    deleteArticle: build.mutation<any, { slug: string; token: string }>({
       query: ({ slug, token }) => ({
         url: `/articles/${slug}`,
+        method: 'DELETE',
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      }),
+    }),
+
+    favoriteArticle: build.mutation<{ article: ArticleData }, { slug: string; token: string }>({
+      query: ({ slug, token }) => ({
+        url: `/articles/${slug}/favorite`,
+        method: 'POST',
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      }),
+    }),
+
+    unFavoriteArticle: build.mutation<{ article: ArticleData }, { slug: string; token: string }>({
+      query: ({ slug, token }) => ({
+        url: `/articles/${slug}/favorite`,
         method: 'DELETE',
         headers: {
           Authorization: `Token ${token}`,
@@ -114,4 +137,6 @@ export const {
   useGetArticleQuery,
   useEditArticleMutation,
   useDeleteArticleMutation,
+  useFavoriteArticleMutation,
+  useUnFavoriteArticleMutation,
 } = blogAPI

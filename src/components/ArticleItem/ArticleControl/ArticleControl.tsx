@@ -16,7 +16,7 @@ const ArticleControl = () => {
   const onDelete = async () => {
     const token = localStorage.getItem('token')
     try {
-      await deleteArticle({ slug: params.slug, token: token! })
+      await deleteArticle({ slug: params.slug!, token: token! })
       navigate('/articles')
     } catch (e) {
       console.error(e)
