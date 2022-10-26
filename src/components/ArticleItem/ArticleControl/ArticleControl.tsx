@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Popconfirm } from 'antd'
 
 import Button from '../../Button/Button'
 import { useDeleteArticleMutation } from '../../../services/BlogService'
@@ -28,7 +29,15 @@ const ArticleControl = () => {
 
   return (
     <div className={styles.wrapper}>
-      <Button title="Delete" type="Danger" onClick={onDelete} btnSize="smLong" />
+      <Popconfirm
+        placement="rightTop"
+        title="Are you sure to delete this article?"
+        onConfirm={onDelete}
+        okText="Yes"
+        cancelText="No"
+      >
+        <Button title="Delete" type="Danger" btnSize="smLong" />
+      </Popconfirm>
       <Link to="./edit">
         <Button title="Edit" type="Success" btnSize="smLong" />
       </Link>
