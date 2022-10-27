@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup'
 
 import { useUpdateUserMutation } from '../../services/BlogService'
@@ -27,18 +27,16 @@ const ProfilePage = () => {
     } catch (e: any) {
       if (e.status === 422) {
         if ('email' in e.data.errors && 'username' in e.data.errors) {
-          setErrorArray((prev) => [
+          setErrorArray([
             { name: 'username', option: { type: 'server', message: `Username ${e.data.errors.username}` } },
             { name: 'email', option: { type: 'server', message: `Email ${e.data.errors.email}` } },
           ])
         } else {
           if (e?.data?.errors?.email) {
-            setErrorArray((prev) => [
-              { name: 'email', option: { type: 'server', message: `Email ${e.data.errors.email}` } },
-            ])
+            setErrorArray([{ name: 'email', option: { type: 'server', message: `Email ${e.data.errors.email}` } }])
           }
           if (e?.data?.errors?.username) {
-            setErrorArray((prev) => [
+            setErrorArray([
               { name: 'username', option: { type: 'server', message: `Username ${e.data.errors.username}` } },
             ])
           }

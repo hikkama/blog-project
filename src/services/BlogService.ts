@@ -51,7 +51,7 @@ export const blogAPI = createApi({
 
     getCurrentUser: build.query<UserResponse, string>({
       query: (token) => ({
-        url: '/user',
+        url: '/users',
         headers: {
           Authorization: `Token ${token}`,
         },

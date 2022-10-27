@@ -1,4 +1,4 @@
-import React, { FC, HTMLProps } from 'react'
+import { FC, HTMLProps } from 'react'
 import classNames from 'classnames'
 
 import styles from './Button.module.scss'

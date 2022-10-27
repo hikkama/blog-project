@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { Spin } from 'antd'
 
 import ArticleList from '../../components/ArticleList'
-import { useFetchAllArticlesQuery, useLazyGetCurrentUserQuery } from '../../services/BlogService'
-import { addArticles, addUser } from '../../store/reducers/blogSlice'
+import { useFetchAllArticlesQuery } from '../../services/BlogService'
+import { addArticles } from '../../store/reducers/blogSlice'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import PaginationBlock from '../../components/PaginationBlock'
 import Error from '../../components/Error'
@@ -20,25 +20,10 @@ const ArticleListPage = () => {
     }
   )
 
-  const [getUser, { data: user, isError: isUserError, error: userError, endpointName: userEndpointName }] =
-    useLazyGetCurrentUserQuery()
   useEffect(() => {
     if (!data) return
     dispatch(addArticles(data.articles))
   }, [data])
-
-  useEffect(() => {
-    if (!token) return
-    ;(async () => {
-      await getUser(token)
-    })()
-  }, [token])
-
-  useEffect(() => {
-    if (!user) return
-
-    dispatch(addUser(user.user))
-  }, [user])
 
   return (
     <>
@@ -48,7 +33,6 @@ const ArticleListPage = () => {
         </div>
       )}
       {isError && <Error error={error} endpointName={endpointName} />}
-      {isUserError && <Error error={userError} endpointName={userEndpointName} />}
       {data && (
         <>
           <ArticleList refetch={refetch} />

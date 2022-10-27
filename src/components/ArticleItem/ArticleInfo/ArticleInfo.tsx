@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { Link } from 'react-router-dom'
 import { HeartOutlined, HeartFilled } from '@ant-design/icons'
 import { Tag } from 'antd'
@@ -29,12 +29,12 @@ const ArticleInfo: FC<ArticleInfoProps> = ({ article, wrapper = false, refetch =
     if (token) {
       if (!favorited) {
         ;(async () => {
-          const res = await favoriteArticle({ slug: slug!, token: token! })
+          await favoriteArticle({ slug: slug!, token: token! })
           refetch()
         })()
       } else {
         ;(async () => {
-          const res = await unFavoriteArticle({ slug: slug!, token: token! })
+          await unFavoriteArticle({ slug: slug!, token: token! })
           refetch()
         })()
       }

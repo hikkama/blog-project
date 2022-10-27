@@ -12,4 +12,9 @@
   word-wrap: break-word;
   margin-top: 20px;
   line-height: 28px;
+
+  & * {
+    margin: revert;
+    padding: revert;
+  }
 }

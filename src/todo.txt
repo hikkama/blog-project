@@ -2,11 +2,7 @@ Todo
     1. Везде сделать отображение ошибок(через message antd?) - делаю сделал SingleArticlePage & ArticleListPage & ProfilePage
     & SignInPage & SignUpPage /\
     2. Сделать обработку когда нет интернета /\
-    3. Сделать message(antd) при успешном изменении профиля
-    4. Отображение статей поправить(http://localhost:3000/articles/react-is-a-javascript-z0k9ua)
+    3. Сделать message(antd) при успешном изменении профиля /\
+    4. Отображение статей поправить(http://localhost:3000/articles/react-is-a-javascript-z0k9ua) /\
     5. Пройтись по каждому файлу и проверить на говнокод и разбить логику, если потребуется
-    6. Включить все ошибки в prettier
-
-https://github.com/INRISTIC/BlogKata/tree/master/src/pages
-https://github.com/YaroslavTaranich/KATA-blog
-https://github.com/Zwan3ih/Blog-Kata
+    6. Включить все ошибки в prettier /\

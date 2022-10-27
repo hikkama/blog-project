@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes, TextareaHTMLAttributes } from 'react'
+import { TextareaHTMLAttributes } from 'react'
 import classNames from 'classnames'
 import { FieldError, FieldValues, Path, RegisterOptions, UseFormRegister } from 'react-hook-form'
 

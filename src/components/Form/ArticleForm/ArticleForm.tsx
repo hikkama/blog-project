@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { FieldError, useFieldArray, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
@@ -23,7 +23,6 @@ const resolver = yupResolver(articleSchema)
 const ArticleForm: FC<ArticleFormProps> = ({ defaultValues = {}, isLoading = false, title, onSubmit, ...rest }) => {
   const {
     register,
-    setError,
     control,
     handleSubmit,
     formState: { errors, isValid },

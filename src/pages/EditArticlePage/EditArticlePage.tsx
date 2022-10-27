@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react'
 import { Spin } from 'antd'
 import { useNavigate, useParams } from 'react-router-dom'
 

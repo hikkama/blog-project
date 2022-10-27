@@ -1,6 +1,5 @@
 import React, { ReactElement, useEffect } from 'react'
 import { FieldValues, useForm, Resolver, Path, DeepPartial } from 'react-hook-form'
-import { Alert } from 'antd'
 
 import FieldsWrapper from '../FieldsWrapper/FieldsWrapper'
 import Button from '../../Button/Button'
