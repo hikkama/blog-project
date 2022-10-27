@@ -11,3 +11,9 @@ export const warningMessage = (content: string) => {
     content,
   })
 }
+
+export const successMessage = (content: string) => {
+  message.success({
+    content,
+  })
+}

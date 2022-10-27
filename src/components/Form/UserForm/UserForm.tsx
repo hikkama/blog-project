@@ -37,7 +37,6 @@ const UserForm = <T extends Record<string, any>>({
   serverErrors = undefined,
   button,
   isLoading,
-  isSuccess = false,
   defaultValues = undefined,
   ...rest
 }: FormComponentProps<T>): JSX.Element => {
@@ -79,7 +78,6 @@ const UserForm = <T extends Record<string, any>>({
           isLoading={isLoading}
           submit
         />
-        {isSuccess && <Alert message="Successfully updated" type="success" showIcon />}
         <div className={styles.botCaption}>{botCaption}</div>
       </FieldsWrapper>
     </form>

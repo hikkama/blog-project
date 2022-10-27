@@ -1,3 +1,3 @@
-import { warningMessage } from './InfoMessages'
+import { warningMessage, successMessage } from './InfoMessages'
 
-export { warningMessage }
+export { warningMessage, successMessage }

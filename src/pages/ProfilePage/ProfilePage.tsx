@@ -9,6 +9,7 @@ import { addUser } from '../../store/reducers/blogSlice'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import { UserData } from '../../models/user'
 import Error from '../../components/Error'
+import { successMessage } from '../../components/InfoMessages'
 
 type ProfileData = Partial<UserData>
 
@@ -56,6 +57,10 @@ const ProfilePage = () => {
     }
   }
 
+  if (isSuccess) {
+    successMessage('Successfully updated')
+  }
+
   return (
     <>
       <UserForm<ProfileData>
@@ -66,7 +71,6 @@ const ProfilePage = () => {
         serverErrors={errorArray}
         button="Save"
         isLoading={isLoading}
-        isSuccess={isSuccess}
       >
         <Input title="Username" placeholder="Username" name="username" />
         <Input title="Email" placeholder="Email" name="email" />
