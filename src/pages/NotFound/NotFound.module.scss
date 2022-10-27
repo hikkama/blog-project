@@ -12,17 +12,6 @@
   margin-bottom: 20px;
 }
 
-.btn {
-  padding: 5px 10px;
-  display: inline-block;
-  font-size: 17px;
-  border-radius: 4px;
-  color: white;
-  background-color: #1890ff;
-  transition: all 0.2s linear;
-
-  &:hover {
-    color: #1890ff;
-    background-color: white;
-  }
+button[type='button'] {
+  width: auto;
 }

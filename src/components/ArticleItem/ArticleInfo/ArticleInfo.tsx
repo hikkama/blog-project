@@ -1,13 +1,14 @@
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 import { Link } from 'react-router-dom'
 import { HeartOutlined, HeartFilled } from '@ant-design/icons'
-import { Tag, message } from 'antd'
+import { Tag } from 'antd'
 
 import AuthorBlock from '../AuthorBlock'
 import { ArticleData } from '../../../models/articles'
 import ArticleControl from '../ArticleControl/ArticleControl'
 import { useFavoriteArticleMutation, useUnFavoriteArticleMutation } from '../../../services/BlogService'
 import { useAppSelector } from '../../../hooks/redux'
+import { warningMessage } from '../../InfoMessages'
 
 import styles from './ArticleInfo.module.scss'
 
@@ -23,16 +24,6 @@ const ArticleInfo: FC<ArticleInfoProps> = ({ article, wrapper = false, refetch =
   const [favoriteArticle] = useFavoriteArticleMutation()
   const [unFavoriteArticle] = useUnFavoriteArticleMutation()
 
-  message.config({
-    top: 90,
-    duration: 0.5,
-    maxCount: 1,
-  })
-
-  const error = () => {
-    message.warning('You need to be logged in')
-  }
-  console.log(favorited)
   const onClick = () => {
     const token = localStorage.getItem('token')
     if (token) {
@@ -48,7 +39,7 @@ const ArticleInfo: FC<ArticleInfoProps> = ({ article, wrapper = false, refetch =
         })()
       }
     } else {
-      error()
+      warningMessage('You need to be logged in')
     }
   }
 

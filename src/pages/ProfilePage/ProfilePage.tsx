@@ -7,41 +7,53 @@ import editProfileSchema from '../../schemes/editProfileSchema'
 import Input from '../../components/Form/Input/Input'
 import { addUser } from '../../store/reducers/blogSlice'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
-import Error from '../../components/Error'
 import { UserData } from '../../models/user'
+import Error from '../../components/Error'
 
 type ProfileData = Partial<UserData>
 
 const ProfilePage = () => {
   const dispatch = useAppDispatch()
   const { user: userState } = useAppSelector((state) => state.blogReducer)
-  const [updateUser, { data: user, isLoading, isSuccess, isError, error }] = useUpdateUserMutation()
+  const [updateUser, { isLoading, isSuccess, error, endpointName }] = useUpdateUserMutation()
   const [errorArray, setErrorArray] = useState<ErrorData<ProfileData>[]>([])
 
   const onSubmit = async (data: ProfileData) => {
     const token = localStorage.getItem('token')
     try {
-      console.log(data)
       const res = await updateUser({ user: data, token: token! }).unwrap()
       dispatch(addUser({ ...res.user, image: data.image }))
     } catch (e: any) {
-      if (e?.data?.errors?.email) {
-        setErrorArray((prev) => [
-          ...prev,
-          { name: 'email', option: { type: 'server', message: `Email ${e.data.errors.email}` } },
-        ])
-      }
-      if (e?.data?.errors?.username) {
-        setErrorArray((prev) => [
-          ...prev,
-          { name: 'username', option: { type: 'server', message: `Username ${e.data.errors.username}` } },
-        ])
+      if (e.status === 422) {
+        if ('email' in e.data.errors && 'username' in e.data.errors) {
+          setErrorArray((prev) => [
+            { name: 'username', option: { type: 'server', message: `Username ${e.data.errors.username}` } },
+            { name: 'email', option: { type: 'server', message: `Email ${e.data.errors.email}` } },
+          ])
+        } else {
+          if (e?.data?.errors?.email) {
+            setErrorArray((prev) => [
+              { name: 'email', option: { type: 'server', message: `Email ${e.data.errors.email}` } },
+            ])
+          }
+          if (e?.data?.errors?.username) {
+            setErrorArray((prev) => [
+              { name: 'username', option: { type: 'server', message: `Username ${e.data.errors.username}` } },
+            ])
+          }
+        }
       }
     }
   }
 
-  if (isError) {
-    return <Error error={error} />
+  if (error) {
+    if ('status' in error) {
+      if (error.status !== 422) {
+        return <Error error={error} endpointName={endpointName} />
+      }
+    } else {
+      return <Error error={error} endpointName={endpointName} />
+    }
   }
 
   return (

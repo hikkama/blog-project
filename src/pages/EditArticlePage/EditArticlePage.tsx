@@ -13,7 +13,7 @@ const EditArticlePage = () => {
   const navigate = useNavigate()
 
   const { data, isFetching } = useGetArticleQuery(slug!, { refetchOnMountOrArgChange: true })
-  const [editArticle, { isLoading, isError, error }] = useEditArticleMutation()
+  const [editArticle, { isLoading, error, endpointName }] = useEditArticleMutation()
 
   const onSubmit = async (article: ArticleFormData) => {
     const token = localStorage.getItem('token')
@@ -38,8 +38,8 @@ const EditArticlePage = () => {
     )
   }
 
-  if (isError) {
-    return <Error error={error} />
+  if (error) {
+    return <Error error={error} endpointName={endpointName} />
   }
 
   return (

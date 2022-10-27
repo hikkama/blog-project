@@ -14,7 +14,7 @@ const defaultValues: ArticleFormData = {
 }
 
 const NewArticlePage = () => {
-  const [createArticle, { isLoading, isError, error }] = useCreateArticleMutation()
+  const [createArticle, { isLoading, error, endpointName }] = useCreateArticleMutation()
   const navigate = useNavigate()
 
   const formatDataToPost = (data: ArticleFormData): ArticlePostData => ({
@@ -34,8 +34,8 @@ const NewArticlePage = () => {
     }
   }
 
-  if (isError) {
-    return <Error error={error} />
+  if (error) {
+    return <Error error={error} endpointName={endpointName} />
   }
 
   return (

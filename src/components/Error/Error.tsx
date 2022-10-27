@@ -15,8 +15,8 @@ const Error: FC<ErrorComponentProps> = ({ error, endpointName = null }) => {
       <Alert
         style={{ marginBottom: 20 }}
         message={`Error: ${error.status} `}
-        // @ts-ignore
         description={`Please try again later or reload. Error message - ${
+          // @ts-ignore
           error.data?.errors?.message || error.error!
         }. ${endpointName ? `In this endpoint - ${endpointName}` : ''}`}
         type="error"

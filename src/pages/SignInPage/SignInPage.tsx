@@ -16,7 +16,7 @@ type SignInData = {
 }
 
 const SignInPage = () => {
-  const [logUser, { isLoading, isError, error }] = useLogUserMutation()
+  const [logUser, { isLoading, error, endpointName }] = useLogUserMutation()
   const dispatch = useAppDispatch()
   const [errorArray, setErrorArray] = useState<ErrorData<SignInData>[]>([])
   const navigate = useNavigate()
@@ -30,20 +30,22 @@ const SignInPage = () => {
       navigate('/articles')
     } catch (e: any) {
       if (e?.data?.errors?.['email or password']) {
-        setErrorArray((prev) => [
-          ...prev,
-          { name: 'email', option: { type: 'server', message: 'Email or password is invalid.' } },
-        ])
-        setErrorArray((prev) => [
-          ...prev,
+        setErrorArray([
           { name: 'password', option: { type: 'server', message: 'Email or password is invalid.' } },
+          { name: 'email', option: { type: 'server', message: 'Email or password is invalid.' } },
         ])
       }
     }
   }
 
-  if (isError) {
-    return <Error error={error} />
+  if (error) {
+    if ('status' in error) {
+      if (error.status !== 422) {
+        return <Error error={error} endpointName={endpointName} />
+      }
+    } else {
+      return <Error error={error} endpointName={endpointName} />
+    }
   }
 
   const bot = (

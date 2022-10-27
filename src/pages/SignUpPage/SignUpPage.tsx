@@ -9,6 +9,7 @@ import signUpSchema from '../../schemes/signUpSchema'
 import Checkbox from '../../components/Form/Checkbox/Checkbox'
 import { addUser } from '../../store/reducers/blogSlice'
 import { useAppDispatch } from '../../hooks/redux'
+import Error from '../../components/Error'
 
 type SignUpData = {
   username: string
@@ -19,36 +20,51 @@ type SignUpData = {
 }
 
 const SignUpPage = () => {
-  const [createUser, { isLoading, isError, error }] = useCreateUserMutation()
+  const [createUser, { isLoading, error, endpointName }] = useCreateUserMutation()
   const dispatch = useAppDispatch()
   const [errorArray, setErrorArray] = useState<ErrorData<SignUpData>[]>([])
   const navigate = useNavigate()
 
   const onSubmit = async ({ username, email, password }: SignUpData) => {
     const user = { username, email, password }
+
     try {
       const res = await createUser({ user }).unwrap()
       localStorage.setItem('token', res.user.token!)
       dispatch(addUser(res.user))
       navigate('/articles')
     } catch (e: any) {
-      if (e?.data?.errors?.email) {
-        setErrorArray((prev) => [
-          ...prev,
-          { name: 'email', option: { type: 'server', message: `Email ${e.data.errors.email}` } },
-        ])
-      }
-      if (e?.data?.errors?.username) {
-        setErrorArray((prev) => [
-          ...prev,
-          { name: 'username', option: { type: 'server', message: `Username ${e.data.errors.username}` } },
-        ])
+      if (e.status === 422) {
+        if ('email' in e.data.errors && 'username' in e.data.errors) {
+          setErrorArray((prev) => [
+            { name: 'username', option: { type: 'server', message: `Username ${e.data.errors.username}` } },
+            { name: 'email', option: { type: 'server', message: `Email ${e.data.errors.email}` } },
+          ])
+        } else {
+          if (e?.data?.errors?.email) {
+            setErrorArray((prev) => [
+              { name: 'email', option: { type: 'server', message: `Email ${e.data.errors.email}` } },
+            ])
+          }
+          if (e?.data?.errors?.username) {
+            setErrorArray((prev) => [
+              { name: 'username', option: { type: 'server', message: `Username ${e.data.errors.username}` } },
+            ])
+          }
+        }
       }
     }
   }
-  // if (isError) {
-  //   return <Error error={error} />
-  // }
+
+  if (error) {
+    if ('status' in error) {
+      if (error.status !== 422) {
+        return <Error error={error} endpointName={endpointName} />
+      }
+    } else {
+      return <Error error={error} endpointName={endpointName} />
+    }
+  }
 
   const bot = (
     <>
