@@ -1,28 +1,28 @@
 import { FC } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
-import ArticleListPage from '../../pages/ArticleListPage'
-import SingleArticlePage from '../../pages/SingleArticlePage'
+import Articles from '../../pages/Articles'
+import SingleArticle from '../../pages/SingleArticle'
 import NotFound from '../../pages/NotFound'
-import SignInPage from '../../pages/SignInPage'
+import SignIn from '../../pages/SignIn'
 import Layout from '../Layout'
-import SignUpPage from '../../pages/SignUpPage'
-import ProfilePage from '../../pages/ProfilePage'
-import NewArticlePage from '../../pages/NewArticlePage'
-import EditArticlePage from '../../pages/EditArticlePage'
+import SignUp from '../../pages/SignUp'
+import EditProfile from '../../pages/EditProfile'
+import NewArticle from '../../pages/NewArticle'
+import EditArticle from '../../pages/EditArticle'
 
 const App: FC = () => {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route path="/" element={<ArticleListPage />} />
-        <Route path="/articles" element={<ArticleListPage />} />
-        <Route path="/articles/:slug" element={<SingleArticlePage />} />
-        <Route path="/articles/:slug/edit" element={<EditArticlePage />} />
-        <Route path="/sign-in" element={<SignInPage />} />
-        <Route path="/sign-up" element={<SignUpPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/new-article" element={<NewArticlePage />} />
+        <Route path="/" element={<Articles />} />
+        <Route path="/articles" element={<Articles />} />
+        <Route path="/articles/:slug" element={<SingleArticle />} />
+        <Route path="/articles/:slug/edit" element={<EditArticle />} />
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/profile" element={<EditProfile />} />
+        <Route path="/new-article" element={<NewArticle />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

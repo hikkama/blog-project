@@ -12,7 +12,7 @@ const defaultValues: ArticleFormData = {
   tagList: [],
 }
 
-const NewArticlePage = () => {
+const NewArticle = () => {
   const [createArticle, { isLoading, error, endpointName }] = useCreateArticleMutation()
   const navigate = useNavigate()
 
@@ -42,4 +42,4 @@ const NewArticlePage = () => {
   )
 }
 
-export default NewArticlePage
+export default NewArticle

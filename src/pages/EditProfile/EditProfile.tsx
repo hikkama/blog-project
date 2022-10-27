@@ -13,7 +13,7 @@ import { successMessage } from '../../components/UI/InfoMessages'
 
 type ProfileData = Partial<UserData>
 
-const ProfilePage = () => {
+const EditProfile = () => {
   const dispatch = useAppDispatch()
   const { user: userState } = useAppSelector((state) => state.blogReducer)
   const [updateUser, { isLoading, isSuccess, error, endpointName }] = useUpdateUserMutation()
@@ -79,4 +79,4 @@ const ProfilePage = () => {
   )
 }
 
-export default ProfilePage
+export default EditProfile

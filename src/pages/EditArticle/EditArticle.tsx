@@ -7,7 +7,7 @@ import { ArticleFormData } from '../../models/articles'
 import { formatDataToPost, formatTagList } from '../../utils/formatArticleData'
 import Error from '../../components/Error'
 
-const EditArticlePage = () => {
+const EditArticle = () => {
   const { slug } = useParams()
   const navigate = useNavigate()
 
@@ -48,4 +48,4 @@ const EditArticlePage = () => {
   )
 }
 
-export default EditArticlePage
+export default EditArticle

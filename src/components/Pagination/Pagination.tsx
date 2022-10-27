@@ -1,16 +1,16 @@
 import { FC } from 'react'
-import { Pagination } from 'antd'
+import { Pagination as PaginationAntd } from 'antd'
 
 import { setPageState } from '../../store/reducers/blogSlice'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 
-import styles from './PaginationBlock.module.scss'
+import styles from './Pagination.module.scss'
 
 interface PaginationBlockProps {
   total: number
 }
 
-const PaginationBlock: FC<PaginationBlockProps> = ({ total }) => {
+const Pagination: FC<PaginationBlockProps> = ({ total }) => {
   const dispatch = useAppDispatch()
   const { page } = useAppSelector((state) => state.blogReducer)
 
@@ -20,7 +20,7 @@ const PaginationBlock: FC<PaginationBlockProps> = ({ total }) => {
 
   return (
     <div className={styles.pagination}>
-      <Pagination
+      <PaginationAntd
         size="small"
         onChange={onChangePagination}
         total={total}
@@ -32,4 +32,4 @@ const PaginationBlock: FC<PaginationBlockProps> = ({ total }) => {
   )
 }
 
-export default PaginationBlock
+export default Pagination

@@ -5,10 +5,10 @@ import ArticleList from '../../components/ArticleList'
 import { useFetchAllArticlesQuery } from '../../api/Blog.api'
 import { addArticles } from '../../store/reducers/blogSlice'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
-import PaginationBlock from '../../components/PaginationBlock'
+import Pagination from '../../components/Pagination'
 import Error from '../../components/Error'
 
-const ArticleListPage = () => {
+const Articles = () => {
   const token = localStorage.getItem('token')
   const { page } = useAppSelector((state) => state.blogReducer)
   const dispatch = useAppDispatch()
@@ -36,11 +36,11 @@ const ArticleListPage = () => {
       {data && (
         <>
           <ArticleList refetch={refetch} />
-          <PaginationBlock total={data.articlesCount} />
+          <Pagination total={data.articlesCount} />
         </>
       )}
     </>
   )
 }
 
-export default ArticleListPage
+export default Articles

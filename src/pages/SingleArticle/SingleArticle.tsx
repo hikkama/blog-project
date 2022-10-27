@@ -5,7 +5,7 @@ import ArticleItem from '../../components/ArticleItem'
 import { useFetchArticleQuery } from '../../api/Blog.api'
 import Error from '../../components/Error'
 
-const SingleArticlePage = () => {
+const SingleArticle = () => {
   const token = localStorage.getItem('token')
   const { slug } = useParams()
   const {
@@ -30,4 +30,4 @@ const SingleArticlePage = () => {
   )
 }
 
-export default SingleArticlePage
+export default SingleArticle

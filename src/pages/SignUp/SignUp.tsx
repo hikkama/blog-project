@@ -19,7 +19,7 @@ type SignUpData = {
   agreement: boolean
 }
 
-const SignUpPage = () => {
+const SignUp = () => {
   const [createUser, { isLoading, error, endpointName }] = useCreateUserMutation()
   const dispatch = useAppDispatch()
   const [errorArray, setErrorArray] = useState<ErrorData<SignUpData>[]>([])
@@ -88,4 +88,4 @@ const SignUpPage = () => {
   )
 }
 
-export default SignUpPage
+export default SignUp

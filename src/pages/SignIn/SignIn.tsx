@@ -15,7 +15,7 @@ type SignInData = {
   password: string
 }
 
-const SignInPage = () => {
+const SignIn = () => {
   const [logUser, { isLoading, error, endpointName }] = useLogUserMutation()
   const dispatch = useAppDispatch()
   const [errorArray, setErrorArray] = useState<ErrorData<SignInData>[]>([])
@@ -69,4 +69,4 @@ const SignInPage = () => {
   )
 }
 
-export default SignInPage
+export default SignIn
