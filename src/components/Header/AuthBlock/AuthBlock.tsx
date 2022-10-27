@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import avatar from '../../../assets/img/avatar.svg'
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux'
 import { removeUser } from '../../../store/reducers/blogSlice'
-import Button from '../../Button/Button'
+import Button from '../../UI/Button'
 
 import styles from './AuthBlock.module.scss'
 

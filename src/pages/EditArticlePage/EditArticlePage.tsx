@@ -1,8 +1,8 @@
 import { Spin } from 'antd'
 import { useNavigate, useParams } from 'react-router-dom'
 
-import { useEditArticleMutation, useGetArticleQuery } from '../../services/BlogService'
-import ArticleForm from '../../components/Form/ArticleForm/ArticleForm'
+import { useEditArticleMutation, useGetArticleQuery } from '../../api/Blog.api'
+import ArticleForm from '../../components/Form/ArticleForm'
 import { ArticleFormData } from '../../models/articles'
 import { formatDataToPost, formatTagList } from '../../utils/formatArticleData'
 import Error from '../../components/Error'

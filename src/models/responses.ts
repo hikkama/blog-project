@@ -10,12 +10,6 @@ export interface ArticleResponse {
   article: ArticleData
 }
 
-export interface ServerErrorResponse {
-  errors: {
-    [key: string]: string
-  }
-}
-
 export interface UserResponse {
   user: UserData
 }

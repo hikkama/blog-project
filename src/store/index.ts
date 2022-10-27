@@ -1,6 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 
-import { blogAPI } from '../services/BlogService'
+import { blogAPI } from '../api/Blog.api'
 
 import blogReducer from './reducers/blogSlice'
 

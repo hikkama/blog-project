@@ -1,8 +1,8 @@
 import React, { ReactElement, useEffect } from 'react'
 import { FieldValues, useForm, Resolver, Path, DeepPartial } from 'react-hook-form'
 
-import FieldsWrapper from '../FieldsWrapper/FieldsWrapper'
-import Button from '../../Button/Button'
+import FieldsWrapper from '../FieldsWrapper'
+import Button from '../../UI/Button'
 
 import styles from './UserForm.module.scss'
 
@@ -16,7 +16,6 @@ interface FormComponentProps<T extends FieldValues> {
   defaultValues?: DeepPartial<T>
   button: string
   isLoading: boolean
-  isSuccess?: boolean
 }
 
 export interface ErrorData<T> {

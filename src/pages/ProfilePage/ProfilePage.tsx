@@ -1,15 +1,15 @@
 import { useState } from 'react'
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup'
 
-import { useUpdateUserMutation } from '../../services/BlogService'
+import { useUpdateUserMutation } from '../../api/Blog.api'
 import UserForm, { ErrorData } from '../../components/Form/UserForm/UserForm'
 import editProfileSchema from '../../schemes/editProfileSchema'
-import Input from '../../components/Form/Input/Input'
+import Input from '../../components/Form/Input'
 import { addUser } from '../../store/reducers/blogSlice'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import { UserData } from '../../models/user'
 import Error from '../../components/Error'
-import { successMessage } from '../../components/InfoMessages'
+import { successMessage } from '../../components/UI/InfoMessages'
 
 type ProfileData = Partial<UserData>
 

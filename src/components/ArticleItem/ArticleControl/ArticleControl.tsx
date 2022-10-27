@@ -1,16 +1,16 @@
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { Popconfirm } from 'antd'
 
-import Button from '../../Button/Button'
-import { useDeleteArticleMutation } from '../../../services/BlogService'
-import Error from '../../Error'
+import Button from '../../UI/Button'
+import { useDeleteArticleMutation } from '../../../api/Blog.api'
+import { errorMessage } from '../../UI/InfoMessages'
 
 import styles from './ArticleControl.module.scss'
 
 const ArticleControl = () => {
   const params = useParams()
   const navigate = useNavigate()
-  const [deleteArticle, { isError, error }] = useDeleteArticleMutation()
+  const [deleteArticle, { isError }] = useDeleteArticleMutation()
 
   const onDelete = async () => {
     const token = localStorage.getItem('token')
@@ -23,7 +23,7 @@ const ArticleControl = () => {
   }
 
   if (isError) {
-    return <Error error={error} />
+    errorMessage('An unexpected error occurred...')
   }
 
   return (

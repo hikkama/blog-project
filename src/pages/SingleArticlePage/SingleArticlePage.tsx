@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom'
 import { Spin } from 'antd'
 
 import ArticleItem from '../../components/ArticleItem'
-import { useFetchArticleQuery } from '../../services/BlogService'
+import { useFetchArticleQuery } from '../../api/Blog.api'
 import Error from '../../components/Error'
 
 const SingleArticlePage = () => {

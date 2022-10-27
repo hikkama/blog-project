@@ -19,51 +19,5 @@
 
 .botCaption {
   text-align: center;
-  color: #8c8c8c;
-}
-
-.btn {
-  border: none;
-  padding: 8px 0;
-
-  width: 100%;
-  background: #1890ff;
-  border-radius: 4px;
-  margin-bottom: 8px;
-  cursor: pointer;
-  position: relative;
-  &Text {
-    color: #fff;
-    font-size: 16px;
-  }
-
-  &:disabled {
-    cursor: initial;
-    background: #76b7f8;
-  }
-
-  &Loading::after {
-    content: '';
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    top: 0;
-    left: 0;
-    right: 28%;
-    bottom: 0;
-    margin: auto;
-    border: 4px solid transparent;
-    border-top-color: #ffffff;
-    border-radius: 50%;
-    animation: button-loading-spinner 1s ease infinite;
-  }
-}
-@keyframes button-loading-spinner {
-  from {
-    transform: rotate(0turn);
-  }
-
-  to {
-    transform: rotate(1turn);
-  }
+  color: var(--color-gray-7);
 }

@@ -13,12 +13,6 @@ export interface ArticleData {
   author: UserData
 }
 
-export interface AuthorData {
-  username: string
-  image: string
-  following: boolean
-}
-
 export type ArticleFormData = {
   title: string
   description: string

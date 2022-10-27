@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 
-import { useCreateArticleMutation } from '../../services/BlogService'
-import ArticleForm from '../../components/Form/ArticleForm/ArticleForm'
+import { useCreateArticleMutation } from '../../api/Blog.api'
+import ArticleForm from '../../components/Form/ArticleForm'
 import { ArticleFormData, ArticlePostData } from '../../models/articles'
 import Error from '../../components/Error'
 

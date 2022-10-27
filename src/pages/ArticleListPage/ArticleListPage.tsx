@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { Spin } from 'antd'
 
 import ArticleList from '../../components/ArticleList'
-import { useFetchAllArticlesQuery } from '../../services/BlogService'
+import { useFetchAllArticlesQuery } from '../../api/Blog.api'
 import { addArticles } from '../../store/reducers/blogSlice'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import PaginationBlock from '../../components/PaginationBlock'

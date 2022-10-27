@@ -17,3 +17,9 @@ export const successMessage = (content: string) => {
     content,
   })
 }
+
+export const errorMessage = (content: string) => {
+  message.success({
+    content,
+  })
+}

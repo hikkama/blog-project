@@ -12,7 +12,7 @@ const ArticleList = ({ refetch = () => {} }: { refetch?: () => void }) => {
       {articles?.map((article: ArticleData, index) => {
         return (
           <li className={styles.articleItem} key={`${article.createdAt}-${index}`}>
-            <ArticleInfo refetch={refetch} article={article} wrapper />
+            <ArticleInfo refetch={refetch} article={article} isSingle />
           </li>
         )
       })}

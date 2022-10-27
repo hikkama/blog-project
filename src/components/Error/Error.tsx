@@ -9,7 +9,6 @@ interface ErrorComponentProps {
 }
 
 const Error: FC<ErrorComponentProps> = ({ error, endpointName = null }) => {
-  console.log(error)
   if ('status' in error!) {
     return (
       <Alert

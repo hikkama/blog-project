@@ -4,10 +4,10 @@ import { yupResolver } from '@hookform/resolvers/yup'
 
 import { ArticleFormData } from '../../../models/articles'
 import articleSchema from '../../../schemes/articleSchema'
-import Input from '../Input/Input'
-import TextArea from '../TextArea/TextArea'
-import Button from '../../Button/Button'
-import FieldsWrapper from '../FieldsWrapper/FieldsWrapper'
+import Input from '../Input'
+import TextArea from '../TextArea'
+import Button from '../../UI/Button'
+import FieldsWrapper from '../FieldsWrapper'
 
 import styles from './ArticleForm.module.scss'
 
@@ -89,6 +89,7 @@ const ArticleForm: FC<ArticleFormProps> = ({ defaultValues = {}, isLoading = fal
             <Button title="Add Tag" type="Outlined" btnSize="md" onClick={() => append({ value: '' })} />
           </div>
         </fieldset>
+
         <Button
           title="Send"
           disabled={!isValid || isLoading}

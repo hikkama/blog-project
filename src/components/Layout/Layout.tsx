@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import { Alert } from 'antd'
 
 import { useAppDispatch } from '../../hooks/redux'
-import { useLazyGetCurrentUserQuery } from '../../services/BlogService'
+import { useLazyGetCurrentUserQuery } from '../../api/Blog.api'
 import { addUser } from '../../store/reducers/blogSlice'
 import Header from '../Header'
 import Error from '../../components/Error'
